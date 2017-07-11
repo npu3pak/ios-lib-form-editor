@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'FormEditor_Example' do
+  pod 'FormEditor', :path => '../'
+
+  target 'FormEditor_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
