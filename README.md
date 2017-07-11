@@ -17,7 +17,7 @@ FormEditor is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "FormEditor"
+pod "FormEditor", :git => 'https://github.com/npu3pak/ios-lib-form-editor.git'
 ```
 
 ## Author
