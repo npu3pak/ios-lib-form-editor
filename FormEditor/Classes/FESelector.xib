@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FESelector" id="YRk-hr-jSe" customClass="FESelectorCell" customModule="FormEditor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YRk-hr-jSe" id="2uO-L5-ybw">
+                <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Ключ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4J-QY-WaI">
+                        <rect key="frame" x="8" y="13.5" width="38" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Значение не задано" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IMC-wA-H3K">
+                        <rect key="frame" x="54" y="13" width="268" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IMC-wA-H3K" firstAttribute="leading" secondItem="Z4J-QY-WaI" secondAttribute="trailing" constant="8" id="C0M-Wy-RnM"/>
+                    <constraint firstItem="Z4J-QY-WaI" firstAttribute="centerY" secondItem="2uO-L5-ybw" secondAttribute="centerY" id="JOV-bx-oRw"/>
+                    <constraint firstItem="Z4J-QY-WaI" firstAttribute="leading" secondItem="2uO-L5-ybw" secondAttribute="leading" constant="8" id="OUo-bl-idx"/>
+                    <constraint firstItem="IMC-wA-H3K" firstAttribute="centerY" secondItem="2uO-L5-ybw" secondAttribute="centerY" id="SN1-T2-XxL"/>
+                    <constraint firstAttribute="trailing" secondItem="IMC-wA-H3K" secondAttribute="trailing" constant="8" id="lVp-UW-tYG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="Z4J-QY-WaI" id="O8z-sF-QTx"/>
+                <outlet property="valueTextField" destination="IMC-wA-H3K" id="rMB-yz-Pc5"/>
+            </connections>
+            <point key="canvasLocation" x="-211" y="149"/>
+        </tableViewCell>
+    </objects>
+</document>

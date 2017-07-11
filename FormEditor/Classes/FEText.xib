@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FEText" id="yeL-hp-g1y" customClass="FETextCell" customModule="FormEditor" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yeL-hp-g1y" id="Ask-sM-Lpv">
+                <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Ключ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGk-Ib-usH">
+                        <rect key="frame" x="8" y="13.5" width="38" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Значение не задано" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iRw-Ug-zhV" customClass="FETextField" customModule="FormEditor" customModuleProvider="target">
+                        <rect key="frame" x="54" y="13" width="268" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jGk-Ib-usH" firstAttribute="leading" secondItem="Ask-sM-Lpv" secondAttribute="leading" constant="8" id="9ue-7T-jUo"/>
+                    <constraint firstItem="iRw-Ug-zhV" firstAttribute="centerY" secondItem="Ask-sM-Lpv" secondAttribute="centerY" id="9zv-gH-GNp"/>
+                    <constraint firstAttribute="trailing" secondItem="iRw-Ug-zhV" secondAttribute="trailing" constant="8" id="HTH-af-kKT"/>
+                    <constraint firstItem="jGk-Ib-usH" firstAttribute="centerY" secondItem="Ask-sM-Lpv" secondAttribute="centerY" id="YSg-LF-gbN"/>
+                    <constraint firstItem="iRw-Ug-zhV" firstAttribute="leading" secondItem="jGk-Ib-usH" secondAttribute="trailing" constant="8" id="eax-XC-JDm"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="titleLabel" destination="jGk-Ib-usH" id="7LS-R0-UHl"/>
+                <outlet property="valueTextField" destination="iRw-Ug-zhV" id="4sX-4M-NKg"/>
+            </connections>
+            <point key="canvasLocation" x="-61" y="-16"/>
+        </tableViewCell>
+    </objects>
+</document>
