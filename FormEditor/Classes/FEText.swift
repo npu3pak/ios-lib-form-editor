@@ -1,25 +1,25 @@
 import UIKit
 
-class FEText: PFEParam {
-    var id: String
-    var cellReuseId = "FEText"
-    var cellNibName = "FEText"
+public class FEText: PFEParam {
+    public var id: String
+    public var cellReuseId = "FEText"
+    public var cellNibName = "FEText"
     
-    var accessibilityIdentifier: String?
-    var title: String?
-    var value: String?
-    var placeholder: String?
-    var keyboardType: UIKeyboardType
-    var autocapitalizationType: UITextAutocapitalizationType
-    var inputMask: String?
-    var readOnly: Bool = false
-    var inputMaskForwardDecoration: Bool
-    var visible: Bool = true
-    var maxLength: Int?
+    public var accessibilityIdentifier: String?
+    public var title: String?
+    public var value: String?
+    public var placeholder: String?
+    public var keyboardType: UIKeyboardType
+    public var autocapitalizationType: UITextAutocapitalizationType
+    public var inputMask: String?
+    public var readOnly: Bool = false
+    public var inputMaskForwardDecoration: Bool
+    public var visible: Bool = true
+    public var maxLength: Int?
     
-    var valueChangeListener: ((String?) -> Void)?
+    public var valueChangeListener: ((String?) -> Void)?
     
-    init(id: String, title: String? = nil, value: String? = nil, placeholder: String? = nil, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, inputMask: String? = nil, inputMaskForwardDecoration: Bool = true, maxLength: Int? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil) {
+    public init(id: String, title: String? = nil, value: String? = nil, placeholder: String? = nil, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, inputMask: String? = nil, inputMaskForwardDecoration: Bool = true, maxLength: Int? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil) {
         self.id = id
         self.title = title
         self.value = value
@@ -35,30 +35,30 @@ class FEText: PFEParam {
         self.valueChangeListener = listener
     }
     
-    var canReceiveFocus: Bool {
+    public var canReceiveFocus: Bool {
         return !readOnly
     }
     
-    func configure(cell: UITableViewCell, facade: FormParamFacade) {
+    public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FETextCell {
             paramCell.configure(facade: facade)
         }
     }
     
-    func select() {
+    public func select() {
         
     }
     
-    func onValueChanged(_ newValue: String?) {
+    public func onValueChanged(_ newValue: String?) {
         value = newValue
         valueChangeListener?(newValue)
     }
     
-    func isVisible() -> Bool {
+    public func isVisible() -> Bool {
         return visible
     }
     
-    func equals(other: PFEParam) -> Bool {
+    public func equals(other: PFEParam) -> Bool {
         guard let other = other as? FEText else {
             return false
         }

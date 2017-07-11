@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PFEParam: class {
+public protocol PFEParam: class {
     var id: String {get}
     
     var cellNibName: String {get}

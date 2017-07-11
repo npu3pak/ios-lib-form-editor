@@ -1,11 +1,11 @@
 import UIKit
 
-class FESection {
+public class FESection {
     var header: String?
     var footer: String?
     var params: Array<PFEParam>?
     
-    init(header: String? = nil, footer: String? = nil, params: (() -> [PFEParam])? = nil) {
+    public init(header: String? = nil, footer: String? = nil, params: (() -> [PFEParam])? = nil) {
         self.header = header
         self.footer = footer
         self.params = params?()
@@ -24,7 +24,7 @@ class FESection {
     }
 
     //Такое заполнение секций иногда удобнее, чем заполнение в замыкании. Проект индексируется чуть быстрее.
-    static func +=(left: FESection, right: PFEParam) {
+    public static func +=(left: FESection, right: PFEParam) {
         if left.params == nil {
             left.params = [PFEParam]()
         }

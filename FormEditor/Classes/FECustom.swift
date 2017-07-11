@@ -1,15 +1,15 @@
 import UIKit
 
-class FECustom: PFEParam {
-    var id: String
-    var cellReuseId = "FEText"
-    var cellNibName = "FEText"
+public class FECustom: PFEParam {
+    public var id: String
+    public var cellReuseId = "FEText"
+    public var cellNibName = "FEText"
     
-    var visible: Bool
-    var onSelect: (() -> Void)?
-    var configureCell: ((UITableViewCell) -> Void)?
+    public var visible: Bool
+    public var onSelect: (() -> Void)?
+    public var configureCell: ((UITableViewCell) -> Void)?
     
-    init(id: String, reuseId: String, nibName: String = "", visible: Bool = true, onSelect: (() -> Void)? = nil, configureCell: ((UITableViewCell) -> Void)? = nil) {
+    public init(id: String, reuseId: String, nibName: String = "", visible: Bool = true, onSelect: (() -> Void)? = nil, configureCell: ((UITableViewCell) -> Void)? = nil) {
         self.id = id
         self.cellReuseId = reuseId
         self.cellNibName = nibName
@@ -18,23 +18,23 @@ class FECustom: PFEParam {
         self.configureCell = configureCell
     }
     
-    func configure(cell: UITableViewCell, facade: FormParamFacade) {
+    public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         configureCell?(cell)
     }
     
-    var canReceiveFocus: Bool {
+    public var canReceiveFocus: Bool {
         return false
     }
     
-    func select() {
+    public func select() {
         onSelect?()
     }
     
-    func isVisible() -> Bool {
+    public func isVisible() -> Bool {
         return visible
     }
     
-    func equals(other: PFEParam) -> Bool {
+    public func equals(other: PFEParam) -> Bool {
         return false
     }
 }

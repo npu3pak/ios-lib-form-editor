@@ -1,21 +1,21 @@
 import UIKit
 
-class FESelector: PFEParam {
-    var id: String
-    var cellNibName = "FESelector"
-    var cellReuseId = "FESelector"
-    var canReceiveFocus = true
+public class FESelector: PFEParam {
+    public var id: String
+    public var cellNibName = "FESelector"
+    public var cellReuseId = "FESelector"
+    public var canReceiveFocus = true
     
-    var accessibilityIdentifier: String?
-    var title: String?
-    var value: String?
-    var readOnly: Bool
-    var items: [(value:String?, visibleValue:String?)]?
-    var visible: Bool = true
+    public var accessibilityIdentifier: String?
+    public var title: String?
+    public var value: String?
+    public var readOnly: Bool
+    public var items: [(value:String?, visibleValue:String?)]?
+    public var visible: Bool = true
     
-    var valueChangeListener: ((String?) -> Void)?
+    public var valueChangeListener: ((String?) -> Void)?
     
-    init(id: String, title: String? = nil, value: String? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil, items: () -> [(value:String?, visibleValue:String?)]?) {
+    public init(id: String, title: String? = nil, value: String? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil, items: () -> [(value:String?, visibleValue:String?)]?) {
         self.id = id
         self.title = title
         self.value = value
@@ -26,27 +26,27 @@ class FESelector: PFEParam {
         self.valueChangeListener = listener
     }
     
-    func configure(cell: UITableViewCell, facade: FormParamFacade) {
+    public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FESelectorCell {
             paramCell.configure(facade: facade)
         }
     }
     
-    func select() {
+    public func select() {
         
     }
     
-    func onValueChanged(_ newValue: String?) {
+    public func onValueChanged(_ newValue: String?) {
         value = newValue
         valueChangeListener?(newValue)
     }
     
-    func isVisible() -> Bool {
+    public func isVisible() -> Bool {
         return visible
     }
     
     
-    func equals(other: PFEParam) -> Bool {
+    public func equals(other: PFEParam) -> Bool {
         guard let other = other as? FESelector else {
             return false
         }

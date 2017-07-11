@@ -1,22 +1,22 @@
 import UIKit
 
-class FEDate: PFEParam {
-    var id: String
-    var cellNibName = "FEDate"
-    var cellReuseId = "FEDate"
-    var canReceiveFocus = true
+public class FEDate: PFEParam {
+    public var id: String
+    public var cellNibName = "FEDate"
+    public var cellReuseId = "FEDate"
+    public var canReceiveFocus = true
     
-    var title: String?
-    var value: Date?
-    var readOnly: Bool
-    var minDate: Date
-    var maxDate: Date
-    var visible: Bool
-    var accessibilityIdentifier: String?
+    public var title: String?
+    public var value: Date?
+    public var readOnly: Bool
+    public var minDate: Date
+    public var maxDate: Date
+    public var visible: Bool
+    public var accessibilityIdentifier: String?
     
-    var valueChangeListener: ((Date) -> Void)?
+    public var valueChangeListener: ((Date) -> Void)?
     
-    init(id: String, paramName: String? = nil, title: String? = nil, value: Date? = nil, minDate: Date, maxDate: Date, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((Date) -> Void)? = nil) {
+    public init(id: String, paramName: String? = nil, title: String? = nil, value: Date? = nil, minDate: Date, maxDate: Date, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((Date) -> Void)? = nil) {
         self.id = id
         self.title = title
         self.value = value
@@ -28,26 +28,26 @@ class FEDate: PFEParam {
         self.valueChangeListener = listener
     }
     
-    func configure(cell: UITableViewCell, facade: FormParamFacade) {
+    public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FEDateCell {
             paramCell.configure(facade: facade)
         }
     }
     
-    func select() {
+    public func select() {
         
     }
     
-    func onValueChanged(_ newValue: Date) {
+    public func onValueChanged(_ newValue: Date) {
         value = newValue
         valueChangeListener?(newValue)
     }
     
-    func isVisible() -> Bool {
+    public func isVisible() -> Bool {
         return visible
     }
     
-    func equals(other: PFEParam) -> Bool {
+    public func equals(other: PFEParam) -> Bool {
         guard let other = other as? FEDate else {
             return false
         }

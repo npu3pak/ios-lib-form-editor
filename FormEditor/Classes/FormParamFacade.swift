@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol FormParamFacadeDelegate: class {
+public protocol FormParamFacadeDelegate: class {
     func beginEditing()
     func endEditing()
 }
 
-class FormParamFacade {
+public class FormParamFacade {
     weak var delegate: FormParamFacadeDelegate?
     
     var param: PFEParam

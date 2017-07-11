@@ -8,38 +8,38 @@
 
 import UIKit
 
-class FormEditorViewController: UITableViewController, FormEditorFacadeDelegate {
+open class FormEditorViewController: UITableViewController, FormEditorFacadeDelegate {
     
     private var facade = FormEditorFacade()
     
-    var form: PFEForm? {
+    public var form: PFEForm? {
         didSet {
             facade.form = form
         }
     }
 
-    override func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         facade.delegate = self
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         return facade.visibleSectionsCount
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return facade.header(section: section)
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return facade.footer(section: section)
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return facade.paramsCountInVisibleSection(section)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseId = facade.cellReuseId(row: indexPath.row, section: indexPath.section)
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) {
@@ -60,7 +60,7 @@ class FormEditorViewController: UITableViewController, FormEditorFacadeDelegate 
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         facade.select(row: indexPath.row, section: indexPath.section)
     }
@@ -69,13 +69,13 @@ class FormEditorViewController: UITableViewController, FormEditorFacadeDelegate 
         tableView.reloadData()
     }
     
-    func refresh() {
+    public func refresh() {
         DispatchQueue.main.async {
             self.facade.refresh()
         }
     }
     
-    func select(row: Int, section: Int) {
+    public func select(row: Int, section: Int) {
         facade.select(row: row, section: section)
     }
     

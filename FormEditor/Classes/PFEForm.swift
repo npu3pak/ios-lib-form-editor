@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PFEForm {
+public protocol PFEForm {
     func getSections() -> [FESection]
 }

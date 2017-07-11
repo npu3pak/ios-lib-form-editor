@@ -1,12 +1,10 @@
 import UIKit
 
-extension UITextField {
+public extension UITextField {
     
-    func enableParamsNavigationToolbar(moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) {
+    public func enableParamsNavigationToolbar(moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) {
         // Отступы
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
-        fixedSpace.width = 16
         
         // Навигация
         let navigation = NavigationButtons(moveNextClosure: moveNextClosure, movePreviousClosure: movePreviousClosure)
