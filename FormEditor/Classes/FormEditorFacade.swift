@@ -229,14 +229,14 @@ class FormEditorFacade {
         addedItems.forEach({delegate.insert(indexPath: $0)})
         movedItems.forEach({delegate.move(srcIndexPath: $0.0, dstIndexPath: $0.1)})
         
-        delegate.endUpdates()
-        
         for facade in paramFacades.values {
             if let param = self.param(id: facade.param.id, sections: newSections) {
                 facade.param = param
             }
         }
         updatedItems.forEach({delegate.reload(indexPath: $0)})
+        
+        delegate.endUpdates()
     }
     
     
