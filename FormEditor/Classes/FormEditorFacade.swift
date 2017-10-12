@@ -222,7 +222,16 @@ class FormEditorFacade {
         deletedSections.forEach({delegate.deleteSection(index:$0)})
         deletedItems.forEach({delegate.delete(indexPath: $0)})
         addedItems.forEach({delegate.insert(indexPath: $0)})
-        movedItems.forEach({delegate.move(srcIndexPath: $0.0, dstIndexPath: $0.1)})
+        
+        if #available(iOS 10, *) {
+            movedItems.forEach({delegate.move(srcIndexPath: $0.0, dstIndexPath: $0.1)})
+        } else {
+            // Fix for "cannot move a row into a newly inserted section" on older iOS versions
+            for (src, dst) in movedItems {
+                delegate.delete(indexPath: src)
+                delegate.insert(indexPath: dst)
+            }
+        }
         
         for facade in paramFacades.values {
             if let param = self.param(id: facade.param.id, sections: newSections) {
