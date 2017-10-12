@@ -9,7 +9,7 @@
 import UIKit
 import FormEditor
 
-class ViewController: FormEditorViewController, PFEForm {
+class ViewController: FEViewController, PFEForm {
     
     var secondVisible = false
     

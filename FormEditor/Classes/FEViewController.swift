@@ -1,14 +1,6 @@
-//
-//  FormEditorViewController.swift
-//  FormEditor
-//
-//  Created by Evgeniy Safronov on 08.07.17.
-//  Copyright © 2017 Evgeniy Safronov. All rights reserved.
-//
-
 import UIKit
 
-open class FormEditorViewController: UITableViewController, FormEditorFacadeDelegate {
+open class FEViewController: UITableViewController, FormEditorFacadeDelegate {
     
     private var facade = FormEditorFacade()
     
@@ -50,7 +42,7 @@ open class FormEditorViewController: UITableViewController, FormEditorFacadeDele
             return cell
         } else {
             let nibName = facade.cellNibName(row: indexPath.row, section: indexPath.section)
-            let nib = UINib(nibName: nibName, bundle: Bundle(for: FormEditorViewController.self))
+            let nib = UINib(nibName: nibName, bundle: Bundle(for: FEViewController.self))
             tableView.register(nib, forCellReuseIdentifier: reuseId)
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) {
