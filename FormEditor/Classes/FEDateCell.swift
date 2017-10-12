@@ -2,7 +2,6 @@ import UIKit
 
 class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate {
     
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dateTextField: UITextField!
     
     private var param: FEDate?
@@ -26,19 +25,33 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
             return
         }
         
-        titleLabel.text = param.title
+        dateTextField.textColor = !param.readOnly
+            ? (facade.isEditing ? UIColor.turquoise : UIColor.black)
+            : UIColor.lightGray
         
         dateTextField.isEnabled = !param.readOnly
         dateTextField.accessibilityIdentifier = param.accessibilityIdentifier
-        dateTextField.text = param.value?.asString(.dmy)
-        dateTextField.placeholder = nil
+        dateTextField.text = textFieldValue(date: param.value)
+        dateTextField.placeholder = param.title
         dateTextField.delegate = self
-        dateTextField.inputView = datePicker()
-        dateTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
         
         if facade.isEditing {
             beginEditing()
         }
+    }
+    
+    private func textFieldValue(date: Date?) -> String? {
+        guard let param = self.param else {
+            return nil
+        }
+        
+        guard let date = date else {
+            return nil
+        }
+        
+        let visibleValue = date.asString(.literalDmy)
+        
+        return String(format: param.displayableValueFormat, visibleValue)
     }
     
     private func datePicker() -> UIDatePicker? {
@@ -75,6 +88,16 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         }
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let facade = self.facade else {
+            return false
+        }
+        
+        dateTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        dateTextField.inputView = datePicker()
+        return true
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.textColor = UIColor.turquoise
         facade?.didBeginEditing()
@@ -86,7 +109,7 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
     }
     
     func valueChanged(_ picker: UIDatePicker) {
-        dateTextField.text = picker.date.asString(.dmy)
+        dateTextField.text = textFieldValue(date: picker.date)
         param?.onValueChanged(picker.date)
     }
     

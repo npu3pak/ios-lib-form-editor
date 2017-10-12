@@ -1,11 +1,3 @@
-//
-//  FormEditorFacade.swift
-//  FormEditor
-//
-//  Created by Evgeniy Safronov on 08.07.17.
-//  Copyright © 2017 Evgeniy Safronov. All rights reserved.
-//
-
 import UIKit
 
 protocol FormEditorFacadeDelegate: class {
@@ -31,7 +23,7 @@ class FormEditorFacade {
     private var visibleSections: [FESection] = []
     private var paramFacades: [String: FormParamFacade] = [:]
     
-    var form: PFEForm? {
+    weak var form: PFEForm? {
         didSet {
             let sections = form?.getSections() ?? []
             visibleSections = filterVisible(sections: sections)
@@ -77,7 +69,10 @@ class FormEditorFacade {
     }
     
     func cellReuseId(row: Int, section: Int) -> String {
-        return visibleSections[section][row]?.cellReuseId ?? ""
+        guard let param = visibleSections[section][row] else {
+            return ""
+        }
+        return param.allowReuseCell ? param.cellReuseId : "\(param.cellReuseId)_\(param.id)"
     }
     
     func cellNibName(row: Int, section: Int) -> String {

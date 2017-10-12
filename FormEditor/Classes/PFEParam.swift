@@ -1,11 +1,3 @@
-//
-//  PFEParam.swift
-//  FormEditor
-//
-//  Created by Evgeniy Safronov on 08.07.17.
-//  Copyright © 2017 Evgeniy Safronov. All rights reserved.
-//
-
 import UIKit
 
 public protocol PFEParam: class {
@@ -14,6 +6,8 @@ public protocol PFEParam: class {
     var cellNibName: String {get}
     
     var cellReuseId: String {get}
+    
+    var allowReuseCell: Bool {get}
     
     var canReceiveFocus: Bool {get}
     

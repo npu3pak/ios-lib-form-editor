@@ -2,8 +2,9 @@ import UIKit
 
 public class FECustom: PFEParam {
     public var id: String
-    public var cellReuseId = "FEText"
-    public var cellNibName = "FEText"
+    public var cellReuseId: String
+    public var cellNibName: String
+    public var allowReuseCell = true
     
     public var visible: Bool
     public var onSelect: (() -> Void)?

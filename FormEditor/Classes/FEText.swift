@@ -4,11 +4,11 @@ public class FEText: PFEParam {
     public var id: String
     public var cellReuseId = "FEText"
     public var cellNibName = "FEText"
+    public var allowReuseCell = false
     
     public var accessibilityIdentifier: String?
     public var title: String?
     public var value: String?
-    public var placeholder: String?
     public var keyboardType: UIKeyboardType
     public var autocapitalizationType: UITextAutocapitalizationType
     public var inputMask: String?
@@ -17,13 +17,14 @@ public class FEText: PFEParam {
     public var visible: Bool = true
     public var maxLength: Int?
     
+    public var accessoryImageNames: [String]
+    
     public var valueChangeListener: ((String?) -> Void)?
     
-    public init(id: String, title: String? = nil, value: String? = nil, placeholder: String? = nil, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, inputMask: String? = nil, inputMaskForwardDecoration: Bool = true, maxLength: Int? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil) {
+    public init(id: String, title: String? = nil, value: String? = nil, keyboardType: UIKeyboardType = .default, autocapitalizationType: UITextAutocapitalizationType = .none, inputMask: String? = nil, inputMaskForwardDecoration: Bool = true, maxLength: Int? = nil, readOnly: Bool = false, accessoryImageNames: [String] = [], visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil) {
         self.id = id
         self.title = title
         self.value = value
-        self.placeholder = placeholder
         self.keyboardType = keyboardType
         self.autocapitalizationType = autocapitalizationType
         self.inputMask = inputMask
@@ -33,10 +34,11 @@ public class FEText: PFEParam {
         self.visible = visible
         self.accessibilityIdentifier = accessibilityIdentifier
         self.valueChangeListener = listener
+        self.accessoryImageNames = accessoryImageNames
     }
     
     public var canReceiveFocus: Bool {
-        return !readOnly
+        return !readOnly && isVisible()
     }
     
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
@@ -49,7 +51,7 @@ public class FEText: PFEParam {
         
     }
     
-    public func onValueChanged(_ newValue: String?) {
+    func onValueChanged(_ newValue: String?) {
         value = newValue
         valueChangeListener?(newValue)
     }
@@ -66,7 +68,6 @@ public class FEText: PFEParam {
         return other.id == id &&
             other.value == value &&
             other.title == title &&
-            other.placeholder == placeholder &&
             other.inputMask == inputMask &&
             other.keyboardType == keyboardType &&
             other.autocapitalizationType == autocapitalizationType &&

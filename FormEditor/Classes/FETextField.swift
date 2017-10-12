@@ -1,33 +1,34 @@
 import UIKit
 
-@IBDesignable class FETextField: UITextField {
-    @IBInspectable var onValueChanged: (() -> Void)? {
+@IBDesignable public class FETextField: UITextField {
+    @IBInspectable public var onValueChanged: (() -> Void)? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var textFieldDelegate: UITextFieldDelegate? {
+    @IBInspectable public var textFieldDelegate: UITextFieldDelegate? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var inputMask: String? = nil {
+    @IBInspectable public var inputMask: String? = nil {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var inputMaskForwardDecoration: Bool = true {
-        didSet {
-            setUp()
-        }
-    }
-    @IBInspectable var maxLength: Int? = nil {
+    @IBInspectable public var inputMaskForwardDecoration: Bool = true {
         didSet {
             setUp()
         }
     }
     
-    override var text: String? {
+    public var maxLength: Int? = nil {
+        didSet {
+            setUp()
+        }
+    }
+    
+    override public var text: String? {
         didSet {
             setUp()
         }
@@ -40,12 +41,12 @@ import UIKit
         setUp()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
     
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         super.awakeFromNib()
         setUp()
     }
@@ -63,11 +64,11 @@ import UIKit
         delegate = delegateWrapper
         
         if text != nil && inputMask != nil {
-            super.text = text!.maskingString(mask: inputMask!, forwardDecoration: inputMaskForwardDecoration)
+            super.text = text!.applyingMask(inputMask!, forwardDecoration: inputMaskForwardDecoration)
         }
     }
     
-    var textWithoutMask: String? {
+    public var textWithoutMask: String? {
         return delegateWrapper?.getRawValue(fromMaskedValue: self.text) ?? self.text
     }
 }
@@ -129,7 +130,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         
         //Если в поле ввода ничего нет - форматиируем и вставляем новое знаение
         if oldValue.length == 0 {
-            textField.text = string.maskingString(mask: mask, forwardDecoration: inputMaskForwardDecoration)
+            textField.text = string.applyingMask(mask, forwardDecoration: inputMaskForwardDecoration)
             onValueChanged?()
             return false
         }
@@ -137,7 +138,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         //Проверяем, есть ли в изменяемом диапазоне значащие символы
         var rangeContainsNonMaskChars = false
         for i in range.location ..< (range.location + range.length) {
-            if !mask.isDecorCharacter(at: i) {
+            if !mask.isMaskDecorCharacter(at: i) {
                 rangeContainsNonMaskChars = true
                 break
             }
@@ -146,14 +147,14 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         //Если в изменяемом диапазоне нет значащих символов - расширяем его влево(для удаления) или вправо(для вставки)
         var replacementRange = range
         if !rangeContainsNonMaskChars {
-            while mask.isDecorCharacter(at: replacementRange.location) {
+            while mask.isMaskDecorCharacter(at: replacementRange.location) {
                 if string == "" {
                     replacementRange.location -= 1
                 } else {
                     replacementRange.location += 1
                 }
                 //Уперлись в маску в начале
-                if replacementRange.location < 0 || replacementRange.location == 0 && mask.isDecorCharacter(at: replacementRange.location) {
+                if replacementRange.location < 0 || replacementRange.location == 0 && mask.isMaskDecorCharacter(at: replacementRange.location) {
                     onValueChanged?()
                     return false
                 }
@@ -166,7 +167,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         var rawValueRangeLength = 0
         
         for i in 0..<oldValue.length {
-            if !mask.isDecorCharacter(at: i) {
+            if !mask.isMaskDecorCharacter(at: i) {
                 rawValue.append(oldValue.substring(i, length: 1))
                 if i < replacementRange.location {
                     rawValueRangeLocation += 1
@@ -184,7 +185,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         //Проверяем, не вышло ли значение без маски за максимальную длину
         var maxRawLength = 0
         for i in 0..<mask.length {
-            if !mask.isDecorCharacter(at: i) {
+            if !mask.isMaskDecorCharacter(at: i) {
                 maxRawLength += 1
             }
         }
@@ -195,7 +196,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         }
         
         //Накладываем маску и показываем получившееся значение в поле ввода
-        let masked = rawValue.maskingString(mask: mask, forwardDecoration: inputMaskForwardDecoration)
+        let masked = rawValue.applyingMask(mask, forwardDecoration: inputMaskForwardDecoration)
         textField.text = masked
         
         //Расчитываем и задаем новое положение указателя
@@ -205,7 +206,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
         //Отрезаем значение без маски до расчитанного положения курсора
         let rawValueBeforeCursor = rawValue.substring(0, length: rawValueLengthBeforeCursor)
         //Накладываем на получившееся значение маску и вычисляем длину получившегося выражения
-        let maskedRawValueBeforeCursor = rawValueBeforeCursor.maskingString(mask: mask, forwardDecoration: inputMaskForwardDecoration)
+        let maskedRawValueBeforeCursor = rawValueBeforeCursor.applyingMask(mask, forwardDecoration: inputMaskForwardDecoration)
         let newCursorPosition = maskedRawValueBeforeCursor.length
         //Перемещаем курсор
         textField.setCursorPosition(newCursorPosition)
@@ -228,19 +229,7 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
     }
     
     func getRawValue(fromMaskedValue maskedValue: String?) -> String? {
-        guard let mask = mask, mask.length > 0 else {
-            return maskedValue
-        }
-        
-        var rawValue = ""
-        
-        for i in 0..<(maskedValue?.length ?? 0) {
-            if !mask.isDecorCharacter(at: i) {
-                rawValue.append(maskedValue!.substring(i, length: 1))
-            }
-        }
-        
-        return rawValue
+        return maskedValue?.removingMask(mask)
     }
 }
 
@@ -248,99 +237,6 @@ fileprivate extension UITextField {
     func setCursorPosition(_ position: Int) {
         let position = self.position(from: beginningOfDocument, offset: position)!
         selectedTextRange = textRange(from: position, to: position)
-    }
-}
-
-fileprivate extension String {
-    
-    var length: Int {
-        get {
-            return self.characters.count
-        }
-    }
-    
-    func isDecorCharacter(at position: Int) -> Bool {
-        guard position < length else {
-            return false
-        }
-        
-        let MaskCharDigit = "9"
-        let MaskCharLat = "L"
-        let MaskCharCyr = "Б"
-        let MaskCharAny = "S"
-        
-        let char = substring(position, length: 1)
-        return ![MaskCharDigit, MaskCharLat, MaskCharCyr, MaskCharAny].contains(char)
-    }
-    
-    func getNextDecorCharacter(from position: Int) -> String {
-        guard position < self.characters.count else {
-            return ""
-        }
-        
-        var pos = position
-        var decoration = ""
-        while self.isDecorCharacter(at: pos) {
-            let decorChar = substring(pos, length: 1)
-            decoration.append(decorChar)
-            pos = pos + 1
-        }
-        return decoration
-    }
-    
-    func maskingString(mask: String, forwardDecoration: Bool = false) -> String {
-        var formatted = ""
-        for i in 0..<length {
-            let previous = formatted
-            let valueChar = substring(i, length: 1)
-            formatted.append(mask.getNextDecorCharacter(from: formatted.characters.count))
-            formatted.append(valueChar)
-            if !formatted.checkForMask(mask) {
-                formatted = previous
-            } else if forwardDecoration {
-                formatted.append(mask.getNextDecorCharacter(from: formatted.characters.count))
-            }
-        }
-        return formatted
-    }
-    
-    func checkForMask(_ mask: String) -> Bool {
-        let MaskCharDigit = "9"
-        let MaskCharLat = "L"
-        let MaskCharCyr = "Б"
-        let MaskCharAny = "S"
-        
-        for pos in 0..<length {
-            guard pos < mask.length else {
-                return false
-            }
-            
-            let maskChar = mask.substring(pos, length: 1)
-            let valueChar = substring(pos, length: 1)
-            switch maskChar {
-            case MaskCharDigit: if !valueChar.matchesToRegexp("[0-9]") {return false}
-            case MaskCharLat: if !valueChar.matchesToRegexp("[A-Za-z]") {return false}
-            case MaskCharCyr: if !valueChar.matchesToRegexp("[А-Яа-я]") {return false}
-            case MaskCharAny: if !valueChar.matchesToRegexp(".") {return false}
-            default: if(maskChar != valueChar) {return false}
-            }
-        }
-        return true
-    }
-    
-    func matchesToRegexp(_ regexp: String) -> Bool {
-        return range(of: regexp, options: .regularExpression) != nil
-    }
-    
-    func substring(_ startIndex: Int, length: Int) -> String {
-        let start = self.characters.index(self.startIndex, offsetBy: startIndex)
-        let end = self.characters.index(self.startIndex, offsetBy: startIndex + length)
-        return self[start..<end]
-    }
-    
-    mutating func replace(nsRange: NSRange, replacementString: String) {
-        let nsString = self as NSString
-        self = nsString.replacingCharacters(in: nsRange, with: replacementString)
     }
 }
 

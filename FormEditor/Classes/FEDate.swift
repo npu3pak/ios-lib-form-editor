@@ -4,10 +4,12 @@ public class FEDate: PFEParam {
     public var id: String
     public var cellNibName = "FEDate"
     public var cellReuseId = "FEDate"
+    public var allowReuseCell = false
     public var canReceiveFocus = true
     
     public var title: String?
     public var value: Date?
+    public var displayableValueFormat: String
     public var readOnly: Bool
     public var minDate: Date
     public var maxDate: Date
@@ -16,10 +18,11 @@ public class FEDate: PFEParam {
     
     public var valueChangeListener: ((Date) -> Void)?
     
-    public init(id: String, paramName: String? = nil, title: String? = nil, value: Date? = nil, minDate: Date, maxDate: Date, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((Date) -> Void)? = nil) {
+    public init(id: String, paramName: String? = nil, title: String? = nil, value: Date? = nil, displayableValueFormat: String = "%@", minDate: Date, maxDate: Date, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((Date) -> Void)? = nil) {
         self.id = id
         self.title = title
         self.value = value
+        self.displayableValueFormat = displayableValueFormat
         self.readOnly = readOnly
         self.visible = visible
         self.accessibilityIdentifier = accessibilityIdentifier

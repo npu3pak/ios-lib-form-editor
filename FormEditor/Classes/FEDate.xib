@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FEDate" id="wYZ-cR-McD" customClass="FEDateCell" customModule="FormEditor" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="330" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="49" id="wYZ-cR-McD" customClass="FEDateCell" customModule="SwiftModules" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="330" height="49"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wYZ-cR-McD" id="dZc-fv-WmQ">
-                <rect key="frame" x="0.0" y="0.0" width="330" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="330" height="48.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Ключ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSg-pa-eHp">
-                        <rect key="frame" x="8" y="13.5" width="38" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Значение не задано" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QlH-nS-QdK">
-                        <rect key="frame" x="54" y="13" width="268" height="18"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0h-i5-e41">
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="48.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="tu1-s0-6im"/>
+                        </constraints>
+                    </view>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Значение не задано" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QlH-nS-QdK">
+                        <rect key="frame" x="14" y="15.5" width="302" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="eSg-pa-eHp" firstAttribute="leading" secondItem="dZc-fv-WmQ" secondAttribute="leading" constant="8" id="AnA-7u-yfC"/>
-                    <constraint firstItem="QlH-nS-QdK" firstAttribute="leading" secondItem="eSg-pa-eHp" secondAttribute="trailing" constant="8" id="V3O-au-P8Z"/>
-                    <constraint firstItem="eSg-pa-eHp" firstAttribute="centerY" secondItem="dZc-fv-WmQ" secondAttribute="centerY" id="qO0-fE-pSq"/>
-                    <constraint firstAttribute="trailing" secondItem="QlH-nS-QdK" secondAttribute="trailing" constant="8" id="xD5-Ua-fbk"/>
+                    <constraint firstItem="QlH-nS-QdK" firstAttribute="leading" secondItem="dZc-fv-WmQ" secondAttribute="leading" constant="14" id="L07-xV-upX"/>
+                    <constraint firstItem="j0h-i5-e41" firstAttribute="top" secondItem="dZc-fv-WmQ" secondAttribute="top" id="Uqh-XJ-U6O"/>
+                    <constraint firstItem="j0h-i5-e41" firstAttribute="leading" secondItem="dZc-fv-WmQ" secondAttribute="leading" id="XXy-fj-mjt"/>
+                    <constraint firstAttribute="trailing" secondItem="j0h-i5-e41" secondAttribute="trailing" id="gpx-ap-isR"/>
+                    <constraint firstAttribute="bottom" secondItem="j0h-i5-e41" secondAttribute="bottom" id="qmt-ap-Vy7"/>
+                    <constraint firstAttribute="trailing" secondItem="QlH-nS-QdK" secondAttribute="trailing" constant="14" id="xD5-Ua-fbk"/>
                     <constraint firstItem="QlH-nS-QdK" firstAttribute="centerY" secondItem="dZc-fv-WmQ" secondAttribute="centerY" id="xPc-Lx-Wxl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateTextField" destination="QlH-nS-QdK" id="YYp-iq-c85"/>
-                <outlet property="titleLabel" destination="eSg-pa-eHp" id="ild-VU-XGN"/>
             </connections>
-            <point key="canvasLocation" x="-370" y="-171"/>
+            <point key="canvasLocation" x="-370" y="-168.5"/>
         </tableViewCell>
     </objects>
 </document>

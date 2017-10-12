@@ -1,17 +1,11 @@
-//
-//  DateExtensions.swift
-//  SwiftModules
-//
-//  Created by Evgeniy Safronov on 12.05.17.
-//  Copyright © 2017 Altarix. All rights reserved.
-//
-
 import Foundation
 
 enum DateFormat: String {
+    case ymdhms = "yyyy-MM-dd HH:mm:ss"
     case dmyhms = "dd.MM.yyyy HH:mm:ss"
     case dmyhm = "dd.MM.yyyy HH:mm"
     case dmy = "dd.MM.yyyy"
+    case literalDmy = "dd MMMM yyyy"
     case y = "yyyy"
     case hm = "HH:mm"
 }

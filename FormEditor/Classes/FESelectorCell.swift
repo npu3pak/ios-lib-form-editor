@@ -2,7 +2,6 @@ import UIKit
 
 class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, FormParamFacadeDelegate {
     
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var valueTextField: UITextField!
     
     private var param: FESelector?
@@ -25,22 +24,34 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
             return
         }
         
-        titleLabel.text = param.title
-        
-        let visibleValue = param.items?
-            .first(where: {$0.value == param.value})?
-            .visibleValue
-        
-        valueTextField.accessibilityIdentifier = param.accessibilityIdentifier
-        valueTextField.text = visibleValue
+        valueTextField.textColor = !param.readOnly
+            ? (facade.isEditing ? UIColor.turquoise : UIColor.black)
+            : UIColor.lightGray
+        valueTextField.text = textFieldValue(value: param.value)
+        valueTextField.isEnabled = !param.readOnly
         valueTextField.delegate = self
-        valueTextField.placeholder = nil
-        valueTextField.inputView = pickerView()
-        valueTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        valueTextField.placeholder = param.title
+        valueTextField.accessibilityIdentifier = param.accessibilityIdentifier
         
         if facade.isEditing {
             beginEditing()
         }
+    }
+    
+    private func textFieldValue(value: String?) -> String? {
+        guard let value = value else {
+            return nil
+        }
+        
+        guard let param = self.param else {
+            return nil
+        }
+        
+        let visibleValue = param.items?
+            .first(where: {$0.value == value})?
+            .visibleValue ?? ""
+        
+        return String(format: param.displayableValueFormat, visibleValue)
     }
     
     func beginEditing() {
@@ -57,6 +68,15 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
                 self.valueTextField.resignFirstResponder()
             }
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let facade = self.facade else {
+            return false
+        }
+        valueTextField.inputView = pickerView()
+        valueTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -100,10 +120,10 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let visibleValue = param?.items?[row].visibleValue
-        valueTextField.text = visibleValue
-        
         let value = param?.items?[row].value
+        
+        valueTextField.text = textFieldValue(value: value)
+        
         param?.onValueChanged(value)
     }
 }

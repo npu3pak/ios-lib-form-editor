@@ -12,7 +12,7 @@ open class FormEditorViewController: UITableViewController, FormEditorFacadeDele
     
     private var facade = FormEditorFacade()
     
-    public var form: PFEForm? {
+    public weak var form: PFEForm? {
         didSet {
             facade.form = form
         }
@@ -21,6 +21,9 @@ open class FormEditorViewController: UITableViewController, FormEditorFacadeDele
     override open func viewDidLoad() {
         super.viewDidLoad()
         facade.delegate = self
+        
+        tableView.estimatedRowHeight = 51
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
     override open func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,7 +68,7 @@ open class FormEditorViewController: UITableViewController, FormEditorFacadeDele
         facade.select(row: indexPath.row, section: indexPath.section)
     }
     
-    func reloadData() {
+    public func reloadData() {
         tableView.reloadData()
     }
     
@@ -79,7 +82,7 @@ open class FormEditorViewController: UITableViewController, FormEditorFacadeDele
         facade.select(row: row, section: section)
     }
     
-    func scrollTo(row: Int, section: Int) {
+    public func scrollTo(row: Int, section: Int) {
         let indexPath = IndexPath(row: row, section: section)
         tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }

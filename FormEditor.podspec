@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FormEditor'
-  s.version          = '0.1.0'
+  s.version          = '0.9.0'
   s.summary          = 'A short description of FormEditor.'
 
 # This description is used to generate tags and improve search results.
@@ -24,11 +24,11 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/npu3pak/FormEditor'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'npu3pak' => 'safronovev@altarix.ru' }
+  s.author           = { 'npu3pak' => 'safronovev.personal@yandex.ru' }
   s.source           = { :git => 'https://github.com/npu3pak/FormEditor.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'FormEditor/Classes/**/*'
   

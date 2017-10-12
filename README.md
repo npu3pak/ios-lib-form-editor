@@ -22,7 +22,7 @@ pod "FormEditor", :git => 'https://github.com/npu3pak/ios-lib-form-editor.git'
 
 ## Author
 
-npu3pak, safronovev@altarix.ru
+npu3pak, safronovev.personal@yandex.ru
 
 ## License
 

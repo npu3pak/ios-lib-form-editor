@@ -19,7 +19,7 @@ public class FESection {
         return params?[index]
     }
     
-    func contains(_ param: PFEParam) -> Bool {
+    public func contains(_ param: PFEParam) -> Bool {
         return params?.first(where: {$0.id == param.id}) != nil
     }
 

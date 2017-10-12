@@ -1,14 +1,6 @@
-//
-//  FormParamFacade.swift
-//  FormEditor
-//
-//  Created by Evgeniy Safronov on 09.07.17.
-//  Copyright © 2017 Evgeniy Safronov. All rights reserved.
-//
-
 import Foundation
 
-public protocol FormParamFacadeDelegate: class {
+protocol FormParamFacadeDelegate: class {
     func beginEditing()
     func endEditing()
 }
@@ -16,7 +8,7 @@ public protocol FormParamFacadeDelegate: class {
 public class FormParamFacade {
     weak var delegate: FormParamFacadeDelegate?
     
-    var param: PFEParam
+    public var param: PFEParam
     private weak var formEditorFacade: FormEditorFacade?
     
     init(param: PFEParam, formEditorFacade: FormEditorFacade) {
@@ -24,7 +16,7 @@ public class FormParamFacade {
         self.formEditorFacade = formEditorFacade
     }
     
-    var isEditing = false
+    public var isEditing = false
     
     // MARK: Управление жизненным циклом
     
@@ -48,7 +40,7 @@ public class FormParamFacade {
     
     // MARK: События редактора параметров
     
-    func didBeginEditing() {
+    public func didBeginEditing() {
         guard !isEditing else {
             return
         }
@@ -57,7 +49,7 @@ public class FormParamFacade {
         formEditorFacade?.select(param: param, scrollToPosition: false)
     }
     
-    func didEndEditing() {
+    public func didEndEditing() {
         guard isEditing else {
             return
         }
@@ -67,7 +59,7 @@ public class FormParamFacade {
     
     // MARK: Взаимодействие с другими параметрами
     
-    func editPreviousParam() {
+    public func editPreviousParam() {
         if let previousParam = formEditorFacade?.previous(param: param) {
             formEditorFacade?.select(param: previousParam, scrollToPosition: true)
         } else {
@@ -75,7 +67,7 @@ public class FormParamFacade {
         }
     }
     
-    func editNextParam() {
+    public func editNextParam() {
         if let nextParam = formEditorFacade?.next(param: param) {
             formEditorFacade?.select(param: nextParam, scrollToPosition: true)
         } else {

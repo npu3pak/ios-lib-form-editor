@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="140" id="HzY-9Z-6TJ" customClass="FETextAreaCell" customModule="SwiftModules">
+            <rect key="frame" x="0.0" y="0.0" width="324" height="140"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HzY-9Z-6TJ" id="Z9P-nK-orD">
+                <rect key="frame" x="0.0" y="0.0" width="324" height="139.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SqU-hj-mam">
+                        <rect key="frame" x="0.0" y="0.0" width="324" height="139.5"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ae8-Y3-SCS" customClass="FETextView" customModule="SwiftModules">
+                                <rect key="frame" x="10" y="0.0" width="304" height="140"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="20v-be-otD"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Ae8-Y3-SCS" secondAttribute="bottom" id="2wN-5m-JZP"/>
+                            <constraint firstItem="Ae8-Y3-SCS" firstAttribute="leading" secondItem="SqU-hj-mam" secondAttribute="leading" constant="10" id="Kc2-R6-S1Y"/>
+                            <constraint firstItem="Ae8-Y3-SCS" firstAttribute="top" secondItem="SqU-hj-mam" secondAttribute="top" id="hc7-f0-IFR"/>
+                            <constraint firstAttribute="trailing" secondItem="Ae8-Y3-SCS" secondAttribute="trailing" constant="10" id="p7X-TO-8BK"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="vO4-vp-z3Y"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="SqU-hj-mam" firstAttribute="top" secondItem="Z9P-nK-orD" secondAttribute="top" id="4Wc-Wb-wUL"/>
+                    <constraint firstItem="SqU-hj-mam" firstAttribute="leading" secondItem="Z9P-nK-orD" secondAttribute="leading" id="OkB-w3-1tL"/>
+                    <constraint firstAttribute="trailing" secondItem="SqU-hj-mam" secondAttribute="trailing" id="dCx-a9-Igs"/>
+                    <constraint firstAttribute="bottom" secondItem="SqU-hj-mam" secondAttribute="bottom" id="x5a-2n-s7H"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="valueTextView" destination="Ae8-Y3-SCS" id="HFc-uM-s8S"/>
+            </connections>
+            <point key="canvasLocation" x="-135" y="32"/>
+        </tableViewCell>
+    </objects>
+</document>

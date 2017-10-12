@@ -4,26 +4,34 @@ public class FESelector: PFEParam {
     public var id: String
     public var cellNibName = "FESelector"
     public var cellReuseId = "FESelector"
-    public var canReceiveFocus = true
+    public var allowReuseCell = false
     
     public var accessibilityIdentifier: String?
     public var title: String?
     public var value: String?
+    public var displayableValueFormat: String
+    public var emptyVisibleValue: String?
     public var readOnly: Bool
     public var items: [(value:String?, visibleValue:String?)]?
     public var visible: Bool = true
     
     public var valueChangeListener: ((String?) -> Void)?
     
-    public init(id: String, title: String? = nil, value: String? = nil, readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil, items: () -> [(value:String?, visibleValue:String?)]?) {
+    public init(id: String, title: String? = nil, value: String? = nil, emptyVisibleValue: String?, displayableValueFormat: String = "%@",readOnly: Bool = false, visible: Bool = true, accessibilityIdentifier: String? = nil, listener: ((String?) -> Void)? = nil, items: () -> [(value:String?, visibleValue:String?)]?) {
         self.id = id
         self.title = title
         self.value = value
+        self.emptyVisibleValue = emptyVisibleValue
+        self.displayableValueFormat = displayableValueFormat
         self.readOnly = readOnly
-        self.items = items()
         self.visible = visible
         self.accessibilityIdentifier = accessibilityIdentifier
         self.valueChangeListener = listener
+        
+        if var items = items(), items.count > 0 {
+            items.insert((nil, emptyVisibleValue), at: 0)
+            self.items = items
+        }
     }
     
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
@@ -36,15 +44,18 @@ public class FESelector: PFEParam {
         
     }
     
-    public func onValueChanged(_ newValue: String?) {
+    func onValueChanged(_ newValue: String?) {
         value = newValue
         valueChangeListener?(newValue)
+    }
+    
+    public var canReceiveFocus: Bool {
+        return !readOnly && isVisible()
     }
     
     public func isVisible() -> Bool {
         return visible
     }
-    
     
     public func equals(other: PFEParam) -> Bool {
         guard let other = other as? FESelector else {
