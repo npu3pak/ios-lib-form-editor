@@ -9,6 +9,11 @@ open class FEViewController: UITableViewController, FormEditorFacadeDelegate {
             facade.form = form
         }
     }
+    
+    public var preferences: FEPreferences {
+        get { return facade.preferences }
+        set { facade.preferences = newValue }
+    }
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +54,7 @@ open class FEViewController: UITableViewController, FormEditorFacadeDelegate {
                 facade.configure(cell: cell, row: indexPath.row, section: indexPath.section)
                 return cell
             } else {
-                print("Не удалось найти ячейку \(reuseId)")
+                print("Unable to find cell with reuse id \(reuseId)")
                 return UITableViewCell()
             }
         }

@@ -31,7 +31,7 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         valueTextField.placeholder = param.title
         valueTextField.isEnabled = !param.readOnly
         
-        valueTextField.textColor = facade.isEditing ? UIColor.turquoise : UIColor.black
+        valueTextField.textColor = facade.isEditing ? facade.preferences.colors.text.editing : facade.preferences.colors.text.normal
         
         valueTextField.keyboardType = param.keyboardType
         valueTextField.autocapitalizationType = param.autocapitalizationType
@@ -104,12 +104,15 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         guard let facade = self.facade else {
             return false
         }
-        valueTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        valueTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        valueTextField.textColor = UIColor.turquoise
+        if let editingTextColor = facade?.preferences.colors.text.editing {
+            valueTextField.textColor = editingTextColor
+        }
+        
         facade?.didBeginEditing()
     }
     
@@ -121,7 +124,9 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        valueTextField.textColor = UIColor.black
+        if let normalTextColor = facade?.preferences.colors.text.normal {
+            valueTextField.textColor = normalTextColor
+        }
         facade?.didEndEditing()
     }
     

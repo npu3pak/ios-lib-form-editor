@@ -26,8 +26,8 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         }
         
         dateTextField.textColor = !param.readOnly
-            ? (facade.isEditing ? UIColor.turquoise : UIColor.black)
-            : UIColor.lightGray
+            ? (facade.isEditing ? facade.preferences.colors.text.editing : facade.preferences.colors.text.normal)
+            : facade.preferences.colors.text.placeholder
         
         dateTextField.isEnabled = !param.readOnly
         dateTextField.accessibilityIdentifier = param.accessibilityIdentifier
@@ -93,18 +93,22 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
             return false
         }
         
-        dateTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        dateTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
         dateTextField.inputView = datePicker()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.textColor = UIColor.turquoise
+        if let editingTextColor = facade?.preferences.colors.text.editing {
+            textField.textColor = editingTextColor
+        }
         facade?.didBeginEditing()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.textColor = UIColor.black
+        if let normalTextColor = facade?.preferences.colors.text.normal {
+            textField.textColor = normalTextColor
+        }
         facade?.didEndEditing()
     }
     

@@ -20,6 +20,8 @@ protocol FormEditorFacadeDelegate: class {
 class FormEditorFacade {
     weak var delegate: FormEditorFacadeDelegate?
     
+    var preferences = FEPreferences()
+    
     private var visibleSections: [FESection] = []
     private var paramFacades: [String: FormParamFacade] = [:]
     

@@ -25,8 +25,8 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
         }
         
         valueTextField.textColor = !param.readOnly
-            ? (facade.isEditing ? UIColor.turquoise : UIColor.black)
-            : UIColor.lightGray
+            ? (facade.isEditing ? facade.preferences.colors.text.editing : facade.preferences.colors.text.normal)
+            : facade.preferences.colors.text.placeholder
         valueTextField.text = textFieldValue(value: param.value)
         valueTextField.isEnabled = !param.readOnly
         valueTextField.delegate = self
@@ -75,17 +75,21 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
             return false
         }
         valueTextField.inputView = pickerView()
-        valueTextField.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        valueTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.textColor = UIColor.turquoise
+        if let editingTextColor = facade?.preferences.colors.text.editing {
+            textField.textColor = editingTextColor
+        }
         facade?.didBeginEditing()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.textColor = UIColor.black
+        if let normalTextColor = facade?.preferences.colors.text.normal {
+            textField.textColor = normalTextColor
+        }
         facade?.didEndEditing()
     }
     

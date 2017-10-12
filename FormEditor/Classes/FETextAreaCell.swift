@@ -28,7 +28,7 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
         valueTextView.text = param.value
         valueTextView.delegate = self
         valueTextView.isEditable = !param.readOnly
-        valueTextView.textColor = facade.isEditing ? UIColor.turquoise : UIColor.black
+        valueTextView.textColor = facade.isEditing ? facade.preferences.colors.text.editing : facade.preferences.colors.text.normal
         valueTextView.accessibilityIdentifier = param.accessibilityIdentifier
         valueTextView.onTextChanged = onTextViewTextChanged
         
@@ -57,12 +57,14 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
         guard let facade = self.facade else {
             return false
         }
-        valueTextView.enableParamsNavigationToolbar(moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        valueTextView.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
         return true
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        valueTextView.textColor = UIColor.turquoise
+        if let editingTextColor = facade?.preferences.colors.text.editing {
+            valueTextView.textColor = editingTextColor
+        }
         facade?.didBeginEditing()
     }
     
@@ -71,7 +73,9 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        valueTextView.textColor = UIColor.black
+        if let normalTextColor = facade?.preferences.colors.text.normal {
+            valueTextView.textColor = normalTextColor
+        }
         facade?.didEndEditing()
     }
 }

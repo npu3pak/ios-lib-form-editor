@@ -74,6 +74,12 @@ public class FormParamFacade {
             endEditing()
         }
     }
+    
+    // MARK: Стилизация
+    
+    public var preferences: FEPreferences {
+        return formEditorFacade?.preferences ?? FEPreferences()
+    }
 }
 
 
