@@ -52,8 +52,10 @@ public class FEText: PFEParam {
     }
     
     func onValueChanged(_ newValue: String?) {
-        value = newValue
-        valueChangeListener?(newValue)
+        if value != newValue {
+            value = newValue
+            valueChangeListener?(newValue)
+        }
     }
     
     public func isVisible() -> Bool {

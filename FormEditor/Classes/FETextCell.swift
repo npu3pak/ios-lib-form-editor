@@ -26,6 +26,7 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         
         accessoryView = self.accessory
         
+        valueTextField.onValueChanged = onTextFieldValueChanged
         valueTextField.textFieldDelegate = self
         valueTextField.returnKeyType = .done
         valueTextField.placeholder = param.title
@@ -116,11 +117,9 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         facade?.didBeginEditing()
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let oldValue = textField.text as NSString?
-        let newValue = oldValue?.replacingCharacters(in: range, with: string)
+    func onTextFieldValueChanged(newValue: String?) {
+        let newValue = valueTextField.textWithoutMask
         param?.onValueChanged(newValue)
-        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

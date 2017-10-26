@@ -1,34 +1,33 @@
 import UIKit
 
-@IBDesignable public class FETextField: UITextField {
-    @IBInspectable public var onValueChanged: (() -> Void)? {
+@IBDesignable class FETextField: UITextField {
+    @IBInspectable var onValueChanged: ((String?) -> Void)? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable public var textFieldDelegate: UITextFieldDelegate? {
+    @IBInspectable var textFieldDelegate: UITextFieldDelegate? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable public var inputMask: String? = nil {
+    @IBInspectable var inputMask: String? = nil {
         didSet {
             setUp()
         }
     }
-    @IBInspectable public var inputMaskForwardDecoration: Bool = true {
+    @IBInspectable var inputMaskForwardDecoration: Bool = true {
+        didSet {
+            setUp()
+        }
+    }
+    @IBInspectable var maxLength: Int? = nil {
         didSet {
             setUp()
         }
     }
     
-    public var maxLength: Int? = nil {
-        didSet {
-            setUp()
-        }
-    }
-    
-    override public var text: String? {
+    override var text: String? {
         didSet {
             setUp()
         }
@@ -41,12 +40,12 @@ import UIKit
         setUp()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
     
-    override public func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         setUp()
     }
@@ -59,7 +58,7 @@ import UIKit
         delegateWrapper?.inputMaskForwardDecoration = inputMaskForwardDecoration
         delegateWrapper?.textFieldDelegate = textFieldDelegate
         delegateWrapper?.maxLength = maxLength
-        delegateWrapper?.onValueChanged = onValueChanged
+        delegateWrapper?.onValueChanged = {[weak self] in self?.onValueChanged?(self?.textWithoutMask)}
         
         delegate = delegateWrapper
         
@@ -68,7 +67,7 @@ import UIKit
         }
     }
     
-    public var textWithoutMask: String? {
+    var textWithoutMask: String? {
         return delegateWrapper?.getRawValue(fromMaskedValue: self.text) ?? self.text
     }
 }
@@ -107,16 +106,18 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let textFieldDelegateResult = textFieldDelegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) ?? true
+        
+        // Если поведение было переопределено в делегате ничего не делаем
+        guard textFieldDelegateResult else {
+            return false
+        }
+        
         let hasMask = mask?.length ?? 0 > 0
         
         if hasMask {
             return textFieldWithMask(textField, shouldChangeCharactersIn: range, replacementString: string)
         } else {
-            let isChanged = textFieldWithoutMask(textField, shouldChangeCharactersIn: range, replacementString: string)
-            if isChanged {
-                onValueChanged?()
-            }
-            return textFieldDelegateResult && isChanged
+            return textFieldWithoutMask(textField, shouldChangeCharactersIn: range, replacementString: string)
         }
     }
     
@@ -216,16 +217,15 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
     }
     
     func textFieldWithoutMask(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard var text = textField.text else {
-            return true
+        let oldValue = textField.text as NSString?
+        let newValue = oldValue?.replacingCharacters(in: range, with: string) ?? ""
+        
+        if maxLength == nil || newValue.length <= maxLength! {
+            textField.text = newValue
+            onValueChanged?()
         }
         
-        guard let maxLength = maxLength else {
-            return true
-        }
-        
-        text.replace(nsRange: range, replacementString: string)
-        return text.length <= maxLength
+        return false
     }
     
     func getRawValue(fromMaskedValue maskedValue: String?) -> String? {

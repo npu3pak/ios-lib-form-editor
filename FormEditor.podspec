@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FormEditor'
-  s.version          = '0.9.0'
+  s.version          = '0.9.1'
   s.summary          = 'A short description of FormEditor.'
 
 # This description is used to generate tags and improve search results.
