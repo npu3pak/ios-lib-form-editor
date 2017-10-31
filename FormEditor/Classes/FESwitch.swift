@@ -26,6 +26,20 @@ public class FESwitch: PFEParam {
         self.listener = listener
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FESwitch else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.readOnly = from.readOnly
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.listener = from.listener
+    }
+    
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FESwitchCell {
             paramCell.configure(facade: facade)

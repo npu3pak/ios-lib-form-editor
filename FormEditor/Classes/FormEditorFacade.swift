@@ -216,6 +216,8 @@ class FormEditorFacade {
         let addedSections = self.addedSections(oldSections: oldSections, newSections: newSections)
         let deletedSections = self.deletedSections(oldSections: oldSections, newSections: newSections)
         
+        replaceParams(fromOldSections: oldSections, toNewSections: newSections)
+        
         visibleSections = newSections
         
         delegate.beginUpdates()
@@ -359,6 +361,24 @@ class FormEditorFacade {
         }
         return updatedItems
     }
+    
+    private func replaceParams(fromOldSections oldSections: [FESection], toNewSections newSections: [FESection]) {
+        for (newSectionIndex, newSection) in newSections.enumerated() {
+            for (newParamIndex, newParam) in (newSection.params ?? []).enumerated() {
+                for oldSection in oldSections {
+                    for oldParam in oldSection.params  ?? [] {
+                        if newParam.id == oldParam.id {
+                            if !newParam.equals(other: oldParam) {
+                                oldParam.copy(from: newParam)
+                            }
+                            newSections[newSectionIndex].params?[newParamIndex] = oldParam
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 

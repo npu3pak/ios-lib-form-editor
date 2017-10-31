@@ -19,6 +19,19 @@ public class FECustom: PFEParam {
         self.configureCell = configureCell
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FECustom else {
+            return
+        }
+        
+        self.id = from.id
+        self.cellReuseId = from.cellReuseId
+        self.cellNibName = from.cellNibName
+        self.visible = from.visible
+        self.onSelect = from.onSelect
+        self.configureCell = from.configureCell
+    }
+    
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         configureCell?(cell)
     }
