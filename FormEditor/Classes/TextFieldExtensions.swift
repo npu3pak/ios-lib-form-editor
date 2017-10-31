@@ -1,7 +1,7 @@
 import UIKit
 
 extension UITextField {
-    func enableParamsNavigationToolbar(preferences: FEPreferences, moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) {
+    func enableParamsNavigationToolbar(preferences: FEPreferences, moveNextClosure: (() -> Void)?, movePreviousClosure: (() -> Void)?) {
         self.inputAccessoryView = navigationToolbar(target: self, preferences: preferences, onDoneButtonClick: #selector(onDoneButtonClick), moveNextClosure: moveNextClosure, movePreviousClosure: movePreviousClosure)
     }
     
@@ -11,7 +11,7 @@ extension UITextField {
 }
 
 extension UITextView {
-    func enableParamsNavigationToolbar(preferences: FEPreferences, moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) {
+    func enableParamsNavigationToolbar(preferences: FEPreferences, moveNextClosure: (() -> Void)?, movePreviousClosure: (() -> Void)? ) {
         self.inputAccessoryView = navigationToolbar(target: self, preferences: preferences, onDoneButtonClick: #selector(onDoneButtonClick), moveNextClosure: moveNextClosure, movePreviousClosure: movePreviousClosure)
     }
     
@@ -20,7 +20,7 @@ extension UITextView {
     }
 }
 
-fileprivate func navigationToolbar(target: Any, preferences: FEPreferences, onDoneButtonClick: Selector, moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) -> UIToolbar {
+fileprivate func navigationToolbar(target: Any, preferences: FEPreferences, onDoneButtonClick: Selector, moveNextClosure: (() -> Void)?, movePreviousClosure: (() -> Void)? ) -> UIToolbar {
     // Отступы
     let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     let fixedSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
@@ -46,7 +46,9 @@ fileprivate func navigationToolbar(target: Any, preferences: FEPreferences, onDo
 
 fileprivate class NavigationButtons: UISegmentedControl {
     private var moveNextClosure:  (() -> Void)?
+    private var moveNextClosureIndex: Int?
     private var movePreviousClosure: (() -> Void)?
+    private var movePreviousClosureIndex: Int?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -56,20 +58,36 @@ fileprivate class NavigationButtons: UISegmentedControl {
         super.init(frame: frame)
     }
     
-    init(preferences: FEPreferences, moveNextClosure:  @escaping (() -> Void), movePreviousClosure: @escaping (() -> Void)) {
-        super.init(items: [preferences.labels.inputAccessory.back, preferences.labels.inputAccessory.forward])
-        self.movePreviousClosure = movePreviousClosure
-        self.moveNextClosure = moveNextClosure
+    init(preferences: FEPreferences, moveNextClosure:  (() -> Void)?, movePreviousClosure: (() -> Void)?) {
+        var items: [Any] = []
         
+        if movePreviousClosure != nil {
+            items.append(preferences.labels.inputAccessory.back)
+        }
+        if moveNextClosure != nil {
+            items.append(preferences.labels.inputAccessory.forward)
+        }
+        
+        super.init(items: items)
+        
+        if movePreviousClosure != nil {
+            movePreviousClosureIndex = 0
+            self.movePreviousClosure = movePreviousClosure
+        }
+        if moveNextClosure != nil {
+            moveNextClosureIndex = items.count - 1
+            self.moveNextClosure = moveNextClosure
+        }
+
         addTarget(self, action: #selector(onValueChanged), for: .valueChanged)
     }
     
     func onValueChanged() {
-        if selectedSegmentIndex == 0 {
+        if selectedSegmentIndex == movePreviousClosureIndex {
             movePreviousClosure?()
         }
         
-        if selectedSegmentIndex == 1 {
+        if selectedSegmentIndex == moveNextClosureIndex {
             moveNextClosure?()
         }
         

@@ -59,6 +59,30 @@ public class FormParamFacade {
     
     // MARK: Взаимодействие с другими параметрами
     
+    var isPreviousParamExists: Bool {
+        return formEditorFacade?.previous(param: param) != nil
+    }
+    
+    var isNextParamExists: Bool {
+        return formEditorFacade?.next(param: param) != nil
+    }
+    
+    public var functionForMoveToNextParam: (()-> Void)? {
+        guard isNextParamExists else {
+            return nil
+        }
+
+        return editNextParam
+    }
+    
+    public var functionForMoveToPreviousParam: (()-> Void)? {
+        guard isPreviousParamExists else {
+            return nil
+        }
+        
+        return editPreviousParam
+    }
+    
     public func editPreviousParam() {
         if let previousParam = formEditorFacade?.previous(param: param) {
             formEditorFacade?.select(param: previousParam, scrollToPosition: true)

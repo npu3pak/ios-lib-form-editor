@@ -93,7 +93,7 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
             return false
         }
         
-        dateTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        dateTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.functionForMoveToNextParam, movePreviousClosure: facade.functionForMoveToPreviousParam)
         dateTextField.inputView = datePicker()
         return true
     }

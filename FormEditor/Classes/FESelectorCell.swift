@@ -75,7 +75,7 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
             return false
         }
         valueTextField.inputView = pickerView()
-        valueTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.editNextParam, movePreviousClosure: facade.editPreviousParam)
+        valueTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.functionForMoveToNextParam, movePreviousClosure: facade.functionForMoveToPreviousParam)
         return true
     }
     
