@@ -78,6 +78,13 @@ fileprivate class NavigationButtons: UISegmentedControl {
             moveNextClosureIndex = items.count - 1
             self.moveNextClosure = moveNextClosure
         }
+        
+        let allItems = [preferences.labels.inputAccessory.back, preferences.labels.inputAccessory.forward]
+        if let maxSegmentWidth = allItems.map( { $0.size(attributes: self.titleTextAttributes(for: .normal) as? [String : Any]).width } ).max() {
+            for (index, _ ) in items.enumerated() {
+                setWidth(maxSegmentWidth + 20 , forSegmentAt: index)
+            }
+        }
 
         addTarget(self, action: #selector(onValueChanged), for: .valueChanged)
     }
