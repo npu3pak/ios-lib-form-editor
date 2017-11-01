@@ -2,7 +2,14 @@ import UIKit
 
 extension UITextField {
     func enableParamsNavigationToolbar(preferences: FEPreferences, moveNextClosure: (() -> Void)?, movePreviousClosure: (() -> Void)?) {
+        
+        let needReloadNavigator = (self.inputAccessoryView != nil)
+        
         self.inputAccessoryView = navigationToolbar(target: self, preferences: preferences, onDoneButtonClick: #selector(onDoneButtonClick), moveNextClosure: moveNextClosure, movePreviousClosure: movePreviousClosure)
+        
+        if needReloadNavigator {
+            self.reloadInputViews()
+        }
     }
     
     @objc private func onDoneButtonClick() {

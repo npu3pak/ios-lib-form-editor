@@ -89,12 +89,17 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        let result = enableNavigationToolbar()
+        dateTextField.inputView = datePicker()
+        return result 
+    }
+    
+    internal func enableNavigationToolbar() -> Bool {
         guard let facade = self.facade else {
             return false
         }
         
         dateTextField.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.functionForMoveToNextParam, movePreviousClosure: facade.functionForMoveToPreviousParam)
-        dateTextField.inputView = datePicker()
         return true
     }
     

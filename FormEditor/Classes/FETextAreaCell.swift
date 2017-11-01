@@ -54,9 +54,15 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        let result = enableNavigationToolbar()
+        return result
+    }
+    
+    internal func enableNavigationToolbar() -> Bool {
         guard let facade = self.facade else {
             return false
         }
+        
         valueTextView.enableParamsNavigationToolbar(preferences: facade.preferences, moveNextClosure: facade.functionForMoveToNextParam, movePreviousClosure: facade.functionForMoveToPreviousParam)
         return true
     }

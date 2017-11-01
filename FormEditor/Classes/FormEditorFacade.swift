@@ -244,10 +244,42 @@ class FormEditorFacade {
         }
         updatedItems.forEach({delegate.reload(indexPath: $0)})
         
+        if let firstVisibleParamOld = firstVisibleFocusableParam(fromSections: oldSections), firstVisibleParamOld.id != firstVisibleFocusableParam(fromSections: newSections)?.id {
+                updateNavigationBar( forParam: firstVisibleParamOld, sections: oldSections)
+        }
+        
+        if let lastVisibleParamOld = lastVisibleFocusableParam(fromSections: oldSections), lastVisibleParamOld.id != lastVisibleFocusableParam(fromSections: newSections)?.id {
+            updateNavigationBar( forParam: lastVisibleParamOld, sections: oldSections)
+        }
+        
         delegate.endUpdates()
     }
     
+    private func updateNavigationBar( forParam: PFEParam, sections: [FESection]) {
+        if let indexPath = indexPath(param: forParam, sections: sections) {
+            if let cell = (form as! UITableViewController).tableView.cellForRow(at: indexPath) {
+                if let cell = (cell as? FEDateCell) {
+                    let _ = cell.enableNavigationToolbar()
+                }
+                
+                if let cell = (cell as? FETextCell) {
+                    let _ = cell.enableNavigationToolbar()
+                }
+                
+                if let cell = (cell as? FETextAreaCell)  {
+                    let _ = cell.enableNavigationToolbar()
+                }
+            }
+        }
+    }
     
+    private func firstVisibleFocusableParam( fromSections sections: [FESection]) -> PFEParam? {
+        return sections.first?.params?.first(where: { $0.isVisible() && $0.canReceiveFocus })
+    }
+    
+    private func lastVisibleFocusableParam( fromSections sections: [FESection]) -> PFEParam? {
+        return sections.last?.params?.filter({ $0.isVisible() && $0.canReceiveFocus }).last
+    }
     
     private func addedSections(oldSections: [FESection], newSections: [FESection]) -> [Int] {
         guard newSections.count > oldSections.count else {
