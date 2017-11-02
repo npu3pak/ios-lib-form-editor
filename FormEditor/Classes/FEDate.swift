@@ -31,6 +31,23 @@ public class FEDate: PFEParam {
         self.valueChangeListener = listener
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FEDate else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.displayableValueFormat = from.displayableValueFormat
+        self.readOnly = from.readOnly
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.minDate = from.minDate
+        self.maxDate = from.maxDate
+        self.valueChangeListener = from.valueChangeListener
+    }
+    
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FEDateCell {
             paramCell.configure(facade: facade)

@@ -216,6 +216,8 @@ class FormEditorFacade {
         let addedSections = self.addedSections(oldSections: oldSections, newSections: newSections)
         let deletedSections = self.deletedSections(oldSections: oldSections, newSections: newSections)
         
+        replaceParams(fromOldSections: oldSections, toNewSections: newSections)
+        
         visibleSections = newSections
         
         delegate.beginUpdates()
@@ -242,10 +244,45 @@ class FormEditorFacade {
         }
         updatedItems.forEach({delegate.reload(indexPath: $0)})
         
+        // if the first item in the list was changed, then update NavigationBar's buttons
+        if let firstVisibleParamOld = firstVisibleFocusableParam(fromSections: oldSections), let firstVisibleParamNew = firstVisibleFocusableParam(fromSections: newSections), firstVisibleParamOld.id != firstVisibleParamNew.id  {
+                updateNavigationBar( forParam: firstVisibleParamOld, sections: oldSections)
+                updateNavigationBar( forParam: firstVisibleParamNew, sections: newSections)
+        }
+        // if the last item in the list was changed, then update NavigationBar's buttons
+        if let lastVisibleParamOld = lastVisibleFocusableParam(fromSections: oldSections), let lastVisibleParamNew = lastVisibleFocusableParam(fromSections: newSections), lastVisibleParamOld.id != lastVisibleParamNew.id {
+            updateNavigationBar( forParam: lastVisibleParamOld, sections: oldSections)
+            updateNavigationBar( forParam: lastVisibleParamNew, sections: newSections)
+        }
+        
         delegate.endUpdates()
     }
     
+    private func updateNavigationBar( forParam: PFEParam, sections: [FESection]) {
+        if let indexPath = indexPath(param: forParam, sections: sections) {
+            if let cell = (form as! UITableViewController).tableView.cellForRow(at: indexPath) {
+                if let cell = (cell as? FEDateCell) {
+                    let _ = cell.enableNavigationToolbar()
+                }
+                
+                if let cell = (cell as? FETextCell) {
+                    let _ = cell.enableNavigationToolbar()
+                }
+                
+                if let cell = (cell as? FETextAreaCell)  {
+                    let _ = cell.enableNavigationToolbar()
+                }
+            }
+        }
+    }
     
+    private func firstVisibleFocusableParam( fromSections sections: [FESection]) -> PFEParam? {
+        return sections.first?.params?.first(where: { $0.isVisible() && $0.canReceiveFocus })
+    }
+    
+    private func lastVisibleFocusableParam( fromSections sections: [FESection]) -> PFEParam? {
+        return sections.last?.params?.filter({ $0.isVisible() && $0.canReceiveFocus }).last
+    }
     
     private func addedSections(oldSections: [FESection], newSections: [FESection]) -> [Int] {
         guard newSections.count > oldSections.count else {
@@ -359,6 +396,24 @@ class FormEditorFacade {
         }
         return updatedItems
     }
+    
+    private func replaceParams(fromOldSections oldSections: [FESection], toNewSections newSections: [FESection]) {
+        for (newSectionIndex, newSection) in newSections.enumerated() {
+            for (newParamIndex, newParam) in (newSection.params ?? []).enumerated() {
+                for oldSection in oldSections {
+                    for oldParam in oldSection.params  ?? [] {
+                        if newParam.id == oldParam.id {
+                            if !newParam.equals(other: oldParam) {
+                                oldParam.copy(from: newParam)
+                            }
+                            newSections[newSectionIndex].params?[newParamIndex] = oldParam
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 

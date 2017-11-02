@@ -34,6 +34,25 @@ public class FESelector: PFEParam {
         }
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FESelector else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.emptyVisibleValue = from.emptyVisibleValue
+        self.displayableValueFormat = from.displayableValueFormat
+        self.readOnly = from.readOnly
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.valueChangeListener = from.valueChangeListener
+        
+        self.items = []
+        self.items?.append(contentsOf: (from.items ?? []))
+    }
+    
     public func configure(cell: UITableViewCell, facade: FormParamFacade) {
         if let paramCell = cell as? FESelectorCell {
             paramCell.configure(facade: facade)

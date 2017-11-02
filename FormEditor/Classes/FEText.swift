@@ -37,6 +37,26 @@ public class FEText: PFEParam {
         self.accessoryImageNames = accessoryImageNames
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FEText else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.keyboardType = from.keyboardType
+        self.autocapitalizationType = from.autocapitalizationType
+        self.inputMask = from.inputMask
+        self.inputMaskForwardDecoration = from.inputMaskForwardDecoration
+        self.maxLength = from.maxLength
+        self.readOnly = from.readOnly
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.valueChangeListener = from.valueChangeListener
+        self.accessoryImageNames = from.accessoryImageNames
+    }
+    
     public var canReceiveFocus: Bool {
         return !readOnly && isVisible()
     }

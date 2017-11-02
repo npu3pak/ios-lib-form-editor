@@ -18,4 +18,6 @@ public protocol PFEParam: class {
     func isVisible() -> Bool
     
     func equals(other: PFEParam) -> Bool
+    
+    func copy(from: PFEParam)
 }

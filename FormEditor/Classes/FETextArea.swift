@@ -24,6 +24,20 @@ public class FETextArea: PFEParam {
         self.valueChangeListener = listener
     }
     
+    public func copy(from: PFEParam) {
+        guard let from =  from  as? FETextArea else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.readOnly = from.readOnly
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.valueChangeListener = from.valueChangeListener
+    }
+    
     public var canReceiveFocus: Bool {
         return !readOnly && isVisible()
     }

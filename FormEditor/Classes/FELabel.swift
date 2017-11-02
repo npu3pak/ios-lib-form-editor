@@ -26,6 +26,21 @@ public class FELabel: PFEParam {
         self.onSelect = onSelect
     }
     
+    public func copy(from: PFEParam) {
+        guard let from = from as? FELabel else {
+            return
+        }
+        
+        self.id = from.id
+        self.title = from.title
+        self.value = from.value
+        self.mask = from.mask
+        self.alwaysShowTitle = from.alwaysShowTitle
+        self.visible = from.visible
+        self.accessibilityIdentifier = from.accessibilityIdentifier
+        self.onSelect = from.onSelect
+    }
+    
     public var canReceiveFocus: Bool {
         return false
     }
