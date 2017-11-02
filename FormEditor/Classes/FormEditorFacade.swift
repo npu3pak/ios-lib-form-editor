@@ -244,12 +244,15 @@ class FormEditorFacade {
         }
         updatedItems.forEach({delegate.reload(indexPath: $0)})
         
-        if let firstVisibleParamOld = firstVisibleFocusableParam(fromSections: oldSections), firstVisibleParamOld.id != firstVisibleFocusableParam(fromSections: newSections)?.id {
+        // if the first item in the list was changed, then update NavigationBar's buttons
+        if let firstVisibleParamOld = firstVisibleFocusableParam(fromSections: oldSections), let firstVisibleParamNew = firstVisibleFocusableParam(fromSections: newSections), firstVisibleParamOld.id != firstVisibleParamNew.id  {
                 updateNavigationBar( forParam: firstVisibleParamOld, sections: oldSections)
+                updateNavigationBar( forParam: firstVisibleParamNew, sections: newSections)
         }
-        
-        if let lastVisibleParamOld = lastVisibleFocusableParam(fromSections: oldSections), lastVisibleParamOld.id != lastVisibleFocusableParam(fromSections: newSections)?.id {
+        // if the last item in the list was changed, then update NavigationBar's buttons
+        if let lastVisibleParamOld = lastVisibleFocusableParam(fromSections: oldSections), let lastVisibleParamNew = lastVisibleFocusableParam(fromSections: newSections), lastVisibleParamOld.id != lastVisibleParamNew.id {
             updateNavigationBar( forParam: lastVisibleParamOld, sections: oldSections)
+            updateNavigationBar( forParam: lastVisibleParamNew, sections: newSections)
         }
         
         delegate.endUpdates()
