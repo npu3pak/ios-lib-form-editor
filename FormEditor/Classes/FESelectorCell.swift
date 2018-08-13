@@ -2,7 +2,7 @@ import UIKit
 
 public class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, FormParamFacadeDelegate {
     
-    @IBOutlet public var valueTextField: UITextField!
+    @IBOutlet public var valueTextField: FETextField!
     
     private var param: FESelector?
     private var facade: FormParamFacade?
@@ -29,7 +29,7 @@ public class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewD
             : facade.preferences.colors.text.placeholder
         valueTextField.text = textFieldValue(value: param.value)
         valueTextField.isEnabled = !param.readOnly
-        valueTextField.delegate = self
+        valueTextField.textFieldDelegate = self
         valueTextField.placeholder = param.title
         valueTextField.accessibilityIdentifier = param.accessibilityIdentifier
         

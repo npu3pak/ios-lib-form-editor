@@ -2,7 +2,7 @@ import UIKit
 
 public class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate {
     
-    @IBOutlet public var dateTextField: UITextField!
+    @IBOutlet public var dateTextField: FETextField!
     
     private var param: FEDate?
     private var facade: FormParamFacade?
@@ -33,7 +33,7 @@ public class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDe
         dateTextField.accessibilityIdentifier = param.accessibilityIdentifier
         dateTextField.text = textFieldValue(date: param.value)
         dateTextField.placeholder = param.title
-        dateTextField.delegate = self
+        dateTextField.textFieldDelegate = self
         
         if facade.isEditing {
             beginEditing()
