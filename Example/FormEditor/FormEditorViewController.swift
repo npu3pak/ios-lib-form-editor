@@ -16,5 +16,10 @@ class FormEditorViewController: FEViewController {
         preferences.colors.inputAccessory.done = UIColor.red
         preferences.colors.inputAccessory.navigation = UIColor.red
         preferences.colors.text.editing = UIColor.red
+
+        preferences.customNibsBundle = Bundle(for: FormEditorViewController.self)
+        preferences.customCellNibs = [
+            (FELabel.self, "CustomFELabel")
+        ]
     }
 }

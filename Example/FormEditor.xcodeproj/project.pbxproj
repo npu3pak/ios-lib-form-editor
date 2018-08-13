@@ -16,6 +16,7 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		7BE54E929589CFA41975E945 /* Pods_FormEditor_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6887FF4A64C436F1CB0C8DF /* Pods_FormEditor_Tests.framework */; };
 		BBC57D754371E6A62C805295 /* Pods_FormEditor_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DEAA299EF9B28641BDE538 /* Pods_FormEditor_Example.framework */; };
+		DB2C318A212172F200948E3D /* CustomFELabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = DB2C3189212172F200948E3D /* CustomFELabel.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +33,7 @@
 		402044051F8F6D8C0003CA71 /* FormEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormEditorViewController.swift; sourceTree = "<group>"; };
 		503AB379F6159128D18B2393 /* Pods-FormEditor_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormEditor_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormEditor_Example/Pods-FormEditor_Example.release.xcconfig"; sourceTree = "<group>"; };
 		56DEAA299EF9B28641BDE538 /* Pods_FormEditor_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FormEditor_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C930289B6D73182F544D8D4 /* FormEditor.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FormEditor.podspec; path = ../FormEditor.podspec; sourceTree = "<group>"; };
+		5C930289B6D73182F544D8D4 /* FormEditor.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FormEditor.podspec; path = ../FormEditor.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		607FACD01AFB9204008FA782 /* FormEditor_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormEditor_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		8CBE41DD96F5A761786CF1F9 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		B23BDA6CF90BDA4E5FCFDD26 /* Pods-FormEditor_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormEditor_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormEditor_Tests/Pods-FormEditor_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BF3DEA9CAEA85CAEA990091D /* Pods-FormEditor_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormEditor_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormEditor_Tests/Pods-FormEditor_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		DB2C3189212172F200948E3D /* CustomFELabel.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomFELabel.xib; sourceTree = "<group>"; };
 		E6887FF4A64C436F1CB0C8DF /* Pods_FormEditor_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FormEditor_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CF9A237FA3F8166F2226A8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				402044051F8F6D8C0003CA71 /* FormEditorViewController.swift */,
+				DB2C3189212172F200948E3D /* CustomFELabel.xib */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -174,7 +177,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				B365404AF8FD3F824224932B /* [CP] Embed Pods Frameworks */,
-				BC3F0BD4ABE4F1743E755CA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,8 +195,6 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				08AD806966A524EE542486F4 /* [CP] Embed Pods Frameworks */,
-				1513B2D0C8FA365469E491A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2C318A212172F200948E3D /* CustomFELabel.xib in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -267,36 +268,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08AD806966A524EE542486F4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FormEditor_Tests/Pods-FormEditor_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1513B2D0C8FA365469E491A0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FormEditor_Tests/Pods-FormEditor_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AB7A0C3BAFACFD9C3899F82A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -349,21 +320,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BC3F0BD4ABE4F1743E755CA2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FormEditor_Example/Pods-FormEditor_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

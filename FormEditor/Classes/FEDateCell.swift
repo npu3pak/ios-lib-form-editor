@@ -1,8 +1,8 @@
 import UIKit
 
-class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate {
+public class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate {
     
-    @IBOutlet var dateTextField: UITextField!
+    @IBOutlet public var dateTextField: UITextField!
     
     private var param: FEDate?
     private var facade: FormParamFacade?
@@ -88,7 +88,7 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         }
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         guard let facade = self.facade else {
             return false
         }
@@ -98,14 +98,14 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         if let editingTextColor = facade?.preferences.colors.text.editing {
             textField.textColor = editingTextColor
         }
         facade?.didBeginEditing()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         if let normalTextColor = facade?.preferences.colors.text.normal {
             textField.textColor = normalTextColor
         }
@@ -117,7 +117,7 @@ class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         param?.onValueChanged(picker.date)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing()
         return true
     }

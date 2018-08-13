@@ -47,7 +47,8 @@ open class FEViewController: UITableViewController, FormEditorFacadeDelegate {
             return cell
         } else {
             let nibName = facade.cellNibName(row: indexPath.row, section: indexPath.section)
-            let nib = UINib(nibName: nibName, bundle: Bundle(for: FEViewController.self))
+            let bundle = facade.cellNibBundle(row: indexPath.row, section: indexPath.section)
+            let nib = UINib(nibName: nibName, bundle: bundle)
             tableView.register(nib, forCellReuseIdentifier: reuseId)
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) {

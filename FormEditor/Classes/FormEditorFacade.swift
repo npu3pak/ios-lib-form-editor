@@ -82,7 +82,28 @@ class FormEditorFacade {
             return ""
         }
         
-        return param.cellNibName
+        return customNibName(param: param) ?? param.cellNibName
+    }
+
+    private func customNibName(param: PFEParam) -> String? {
+        for (paramType, nib) in preferences.customCellNibs {
+            if paramType == type(of: param) {
+                return nib
+            }
+        }
+        return nil
+    }
+
+    func cellNibBundle(row: Int, section: Int) -> Bundle {
+        guard let param = visibleSections[section][row] else {
+            return Bundle(for: FEViewController.self)
+        }
+
+        if customNibName(param: param) != nil {
+            return preferences.customNibsBundle
+        } else {
+            return Bundle(for: FEViewController.self)
+        }
     }
     
     func paramFacade(row: Int, section: Int) -> FormParamFacade? {

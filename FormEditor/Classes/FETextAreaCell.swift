@@ -1,8 +1,8 @@
 import UIKit
 
-class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelegate {
+public class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelegate {
     
-    @IBOutlet var valueTextView: FETextView!
+    @IBOutlet public var valueTextView: FETextView!
     
     private var param: FETextArea?
     private var facade: FormParamFacade?
@@ -53,7 +53,7 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
         }
     }
     
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         guard let facade = self.facade else {
             return false
         }
@@ -61,7 +61,7 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
         return true
     }
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    public func textViewDidBeginEditing(_ textView: UITextView) {
         if let editingTextColor = facade?.preferences.colors.text.editing {
             valueTextView.textColor = editingTextColor
         }
@@ -72,7 +72,7 @@ class FETextAreaCell: UITableViewCell, UITextViewDelegate, FormParamFacadeDelega
         param?.onValueChanged(valueTextView.text)
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
+    public func textViewDidEndEditing(_ textView: UITextView) {
         if let normalTextColor = facade?.preferences.colors.text.normal {
             valueTextView.textColor = normalTextColor
         }

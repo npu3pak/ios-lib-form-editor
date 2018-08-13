@@ -1,9 +1,9 @@
 import UIKit
 
-class FESwitchCell: UITableViewCell, FormParamFacadeDelegate {
+public class FESwitchCell: UITableViewCell, FormParamFacadeDelegate {
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var valueSwitch: UISwitch!
+    @IBOutlet public var titleLabel: UILabel!
+    @IBOutlet public var valueSwitch: UISwitch!
     
     private var param: FESwitch?
     private var facade: FormParamFacade?
@@ -30,7 +30,7 @@ class FESwitchCell: UITableViewCell, FormParamFacadeDelegate {
         valueSwitch.isEnabled = !param.readOnly
     }
 
-    @IBAction func switchValueDidChange(_ sender: UISwitch) {
+    @IBAction public func switchValueDidChange(_ sender: UISwitch) {
         let newValue = valueSwitch.isOn
         param?.onValueChanged(newValue)
     }

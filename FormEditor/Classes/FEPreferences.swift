@@ -40,5 +40,8 @@ public class FEPreferences {
             public var done = "Done"
         }
     }
-    
+
+    public var customNibsBundle = Bundle(for: FEViewController.self)
+
+    public var customCellNibs: [(PFEParam.Type, String)] = []
 }

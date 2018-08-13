@@ -1,8 +1,8 @@
 import UIKit
 
-class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, FormParamFacadeDelegate {
+public class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, FormParamFacadeDelegate {
     
-    @IBOutlet var valueTextField: UITextField!
+    @IBOutlet public var valueTextField: UITextField!
     
     private var param: FESelector?
     private var facade: FormParamFacade?
@@ -70,7 +70,7 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
         }
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         guard let facade = self.facade else {
             return false
         }
@@ -79,21 +79,21 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         if let editingTextColor = facade?.preferences.colors.text.editing {
             textField.textColor = editingTextColor
         }
         facade?.didBeginEditing()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         if let normalTextColor = facade?.preferences.colors.text.normal {
             textField.textColor = normalTextColor
         }
         facade?.didEndEditing()
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing()
         return true
     }
@@ -111,19 +111,19 @@ class FESelectorCell: UITableViewCell, UITextFieldDelegate, UIPickerViewDelegate
         return pickerView
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return param?.items?.count ?? 0
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return param?.items?[row].visibleValue
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let value = param?.items?[row].value
         
         valueTextField.text = textFieldValue(value: value)

@@ -1,9 +1,9 @@
 import UIKit
 
-class FELabelCell: UITableViewCell, FormParamFacadeDelegate {
+public class FELabelCell: UITableViewCell, FormParamFacadeDelegate {
     
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var valueLabel: UILabel!
+    @IBOutlet public var titleLabel: UILabel!
+    @IBOutlet public var valueLabel: UILabel!
     
     private var param: FELabel?
     private var facade: FormParamFacade?
