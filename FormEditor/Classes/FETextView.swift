@@ -1,6 +1,6 @@
 import UIKit
 
-public class FETextView: UITextView {
+open class FETextView: UITextView {
     
     public var onTextChanged: (()->Void)?
     
@@ -26,31 +26,31 @@ public class FETextView: UITextView {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override public var font: UIFont? {
+    override open var font: UIFont? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var contentInset: UIEdgeInsets {
+    override open var contentInset: UIEdgeInsets {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var textAlignment: NSTextAlignment {
+    override open var textAlignment: NSTextAlignment {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var text: String? {
+    override open var text: String? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    override public var attributedText: NSAttributedString? {
+    override open var attributedText: NSAttributedString? {
         didSet {
             setNeedsDisplay()
         }
@@ -61,7 +61,7 @@ public class FETextView: UITextView {
         self.onTextChanged?()
     }
     
-    override public func draw(_ rect: CGRect) {
+    override open func draw(_ rect: CGRect) {
         if text!.isEmpty && !placeholderText.isEmpty {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = textAlignment

@@ -6,12 +6,12 @@ import UIKit
             setUp()
         }
     }
-    var onBeginEditing: (() -> Void)? {
+    public var onBeginEditing: (() -> Void)? {
         didSet {
             setUp()
         }
     }
-    var onEndEditing: (() -> Void)? {
+    public var onEndEditing: (() -> Void)? {
         didSet {
             setUp()
         }
@@ -45,7 +45,7 @@ import UIKit
     
     private var delegateWrapper: UITextFieldDelegateWrapper?
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
     }
