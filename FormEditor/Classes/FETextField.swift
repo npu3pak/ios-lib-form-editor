@@ -1,33 +1,33 @@
 import UIKit
 
-@IBDesignable class FETextField: UITextField {
-    @IBInspectable var onValueChanged: ((String?) -> Void)? {
+@IBDesignable open class FETextField: UITextField {
+    @IBInspectable public var onValueChanged: ((String?) -> Void)? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var textFieldDelegate: UITextFieldDelegate? {
+    @IBInspectable public var textFieldDelegate: UITextFieldDelegate? {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var inputMask: String? = nil {
+    @IBInspectable public var inputMask: String? = nil {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var inputMaskForwardDecoration: Bool = true {
+    @IBInspectable public var inputMaskForwardDecoration: Bool = true {
         didSet {
             setUp()
         }
     }
-    @IBInspectable var maxLength: Int? = nil {
+    @IBInspectable public var maxLength: Int? = nil {
         didSet {
             setUp()
         }
     }
     
-    override var text: String? {
+    override open var text: String? {
         didSet {
             setUp()
         }
@@ -40,17 +40,17 @@ import UIKit
         setUp()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
     
-    override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
         setUp()
     }
     
-    func setUp() {
+    private func setUp() {
         autocorrectionType = .no;
         
         delegateWrapper = UITextFieldDelegateWrapper()
@@ -67,7 +67,7 @@ import UIKit
         }
     }
     
-    var textWithoutMask: String? {
+    public var textWithoutMask: String? {
         return delegateWrapper?.getRawValue(fromMaskedValue: self.text) ?? self.text
     }
 }
