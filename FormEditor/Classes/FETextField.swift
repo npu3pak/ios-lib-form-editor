@@ -6,6 +6,16 @@ import UIKit
             setUp()
         }
     }
+    var onBeginEditing: (() -> Void)? {
+        didSet {
+            setUp()
+        }
+    }
+    var onEndEditing: (() -> Void)? {
+        didSet {
+            setUp()
+        }
+    }
     @IBInspectable public var textFieldDelegate: UITextFieldDelegate? {
         didSet {
             setUp()
@@ -59,6 +69,8 @@ import UIKit
         delegateWrapper?.textFieldDelegate = textFieldDelegate
         delegateWrapper?.maxLength = maxLength
         delegateWrapper?.onValueChanged = {[weak self] in self?.onValueChanged?(self?.textWithoutMask)}
+        delegateWrapper?.onBeginEditing = {[weak self] in self?.onBeginEditing?()}
+        delegateWrapper?.onEndEditing = {[weak self] in self?.onEndEditing?()}
         
         delegate = delegateWrapper
         
@@ -79,6 +91,8 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
     var maxLength: Int? = nil
     
     var onValueChanged: (() -> Void)?
+    var onBeginEditing: (() -> Void)?
+    var onEndEditing: (() -> Void)?
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return textFieldDelegate?.textFieldShouldClear?(textField) ?? true
@@ -86,10 +100,12 @@ fileprivate class UITextFieldDelegateWrapper: NSObject, UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textFieldDelegate?.textFieldDidEndEditing?(textField)
+        onEndEditing?()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textFieldDelegate?.textFieldDidBeginEditing?(textField)
+        onBeginEditing?()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
