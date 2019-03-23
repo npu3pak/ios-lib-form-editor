@@ -64,7 +64,7 @@ fileprivate class NavigationButtons: UISegmentedControl {
         addTarget(self, action: #selector(onValueChanged), for: .valueChanged)
     }
     
-    func onValueChanged() {
+    @objc func onValueChanged() {
         if selectedSegmentIndex == 0 {
             movePreviousClosure?()
         }

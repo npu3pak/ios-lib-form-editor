@@ -22,7 +22,7 @@ public class FELabelCell: UITableViewCell, FormParamFacadeDelegate {
             return
         }
         
-        let hasValue = param.value?.characters.count ?? 0 > 0
+        let hasValue = param.value?.count ?? 0 > 0
         
         if hasValue {
             titleLabel.text = param.alwaysShowTitle ? param.title : nil

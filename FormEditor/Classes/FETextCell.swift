@@ -36,7 +36,7 @@ class FETextCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDelegate 
         
         valueTextField.keyboardType = param.keyboardType
         valueTextField.autocapitalizationType = param.autocapitalizationType
-        valueTextField.maxLength = param.maxLength
+        valueTextField.maxLength = param.maxLength != nil ? NSNumber(value: param.maxLength!) : nil
         valueTextField.text = param.value
         valueTextField.inputMask = param.inputMask
         valueTextField.inputMaskForwardDecoration = param.inputMaskForwardDecoration

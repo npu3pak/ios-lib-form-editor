@@ -20,7 +20,7 @@ open class FEViewController: UITableViewController, FormEditorFacadeDelegate {
         facade.delegate = self
         
         tableView.estimatedRowHeight = 51
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
     }
 
     override open func numberOfSections(in tableView: UITableView) -> Int {

@@ -112,7 +112,7 @@ public class FEDateCell: UITableViewCell, UITextFieldDelegate, FormParamFacadeDe
         facade?.didEndEditing()
     }
     
-    func valueChanged(_ picker: UIDatePicker) {
+    @objc func valueChanged(_ picker: UIDatePicker) {
         dateTextField.text = textFieldValue(date: picker.date)
         param?.onValueChanged(picker.date)
     }

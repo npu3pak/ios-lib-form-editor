@@ -39,7 +39,7 @@ class ViewController: FormEditorViewController, PFEForm {
         }
 
         let section2 = FESection(footer: "Футер")
-        section2 += FEText(id: "text_2", title: "Текст 2", value: value2, visible: (value1?.characters.count ?? 0 > 0)) {self.value2 = $0}
+        section2 += FEText(id: "text_2", title: "Текст 2", value: value2, visible: (value1?.count ?? 0 > 0)) {self.value2 = $0}
         section2 += FEDate(id: "date_2", title: "Дата 2", value: date2, minDate: Date(), maxDate: Date(), visible: (self.date1 != nil && date1! < Date())) {self.date2 = $0}
 
         let section3 = FESection(header: "Custom label cell")

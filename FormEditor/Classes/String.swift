@@ -7,8 +7,8 @@ extension String {
         guard let range = self.range(of: pattern, options: .regularExpression) else {
             return false
         }
-        
-        return characters.count == characters.distance(from: range.lowerBound, to: range.upperBound)
+
+        return count == distance(from: range.lowerBound, to: range.upperBound)
     }
 }
 
@@ -17,13 +17,38 @@ extension String {
 extension String {
     
     var length: Int {
-        return self.characters.count
+        return self.count
     }
     
     func substring(_ startIndex: Int, length: Int) -> String {
-        let start = self.characters.index(self.startIndex, offsetBy: startIndex)
-        let end = self.characters.index(self.startIndex, offsetBy: startIndex + length)
-        return self[start..<end]
+        guard startIndex + length > 0 && length >= 0 else {
+            return ""
+        }
+
+        if startIndex > self.length - 1 && startIndex + length > self.length {
+            return ""
+        }
+
+        var start: String.Index!
+        var end: String.Index!
+
+        var startPosition = startIndex
+        var endPosition = length
+
+        if startPosition < 0 {
+            endPosition = length + startIndex
+            startPosition = 0
+        }
+
+        start = index(self.startIndex, offsetBy: startPosition)
+
+        if startIndex + length > self.length {
+            end = self.endIndex
+        } else {
+            end = index(self.startIndex, offsetBy: startPosition + endPosition)
+        }
+
+        return String(self[start..<end])
     }
     
     mutating func replace(nsRange: NSRange, replacementString: String) {
@@ -45,12 +70,12 @@ extension String {
         for i in 0..<length {
             let previous = formatted
             let valueChar = substring(i, length: 1)
-            formatted.append(mask.getNextMaskDecorCharacter(from: formatted.characters.count))
+            formatted.append(mask.getNextMaskDecorCharacter(from: formatted.count))
             formatted.append(valueChar)
             if !formatted.isConformToMask(mask) {
                 formatted = previous
             } else if forwardDecoration {
-                formatted.append(mask.getNextMaskDecorCharacter(from: formatted.characters.count))
+                formatted.append(mask.getNextMaskDecorCharacter(from: formatted.count))
             }
         }
         return formatted
@@ -111,7 +136,7 @@ extension String {
     }
     
     func getNextMaskDecorCharacter(from position: Int) -> String {
-        guard position < self.characters.count else {
+        guard position < self.count else {
             return ""
         }
         

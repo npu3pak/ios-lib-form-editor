@@ -31,7 +31,7 @@ import UIKit
             setUp()
         }
     }
-    @IBInspectable public var maxLength: Int? = nil {
+    @IBInspectable public var maxLength: NSNumber? = nil {
         didSet {
             setUp()
         }
@@ -67,7 +67,7 @@ import UIKit
         delegateWrapper?.mask = inputMask
         delegateWrapper?.inputMaskForwardDecoration = inputMaskForwardDecoration
         delegateWrapper?.textFieldDelegate = textFieldDelegate
-        delegateWrapper?.maxLength = maxLength
+        delegateWrapper?.maxLength = maxLength?.intValue
         delegateWrapper?.onValueChanged = {[weak self] in self?.onValueChanged?(self?.textWithoutMask)}
         delegateWrapper?.onBeginEditing = {[weak self] in self?.onBeginEditing?()}
         delegateWrapper?.onEndEditing = {[weak self] in self?.onEndEditing?()}

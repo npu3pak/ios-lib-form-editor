@@ -19,7 +19,7 @@ open class FETextView: UITextView {
     
     private func setUp() {
         NotificationCenter.default.addObserver(self, selector: #selector(FETextView.textChanged(_:)),
-                                               name: NSNotification.Name.UITextViewTextDidChange, object: self)
+                                               name: UITextView.textDidChangeNotification, object: self)
     }
     
     deinit {
@@ -56,7 +56,7 @@ open class FETextView: UITextView {
         }
     }
     
-    func textChanged(_ notification: Notification) {
+    @objc func textChanged(_ notification: Notification) {
         setNeedsDisplay()
         self.onTextChanged?()
     }
@@ -66,11 +66,11 @@ open class FETextView: UITextView {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = textAlignment
             let attributes: [ String: AnyObject ] = [
-                NSFontAttributeName : font!,
-                NSForegroundColorAttributeName : placeholderColor,
-                NSParagraphStyleAttributeName  : paragraphStyle]
+                convertFromNSAttributedStringKey(NSAttributedString.Key.font) : font!,
+                convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : placeholderColor,
+                convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle)  : paragraphStyle]
             
-            placeholderText.draw(in: placeholderRectForBounds(bounds), withAttributes: attributes)
+            placeholderText.draw(in: placeholderRectForBounds(bounds), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(attributes))
         }
         super.draw(rect)
     }
@@ -81,10 +81,26 @@ open class FETextView: UITextView {
         let w = frame.size.width - contentInset.left - contentInset.right - 16.0
         let h = frame.size.height - contentInset.top - contentInset.bottom - 16.0
         
-        if let style = self.typingAttributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+        if let style = convertFromNSAttributedStringKeyDictionary(self.typingAttributes)[convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle)] as? NSParagraphStyle {
             x += style.headIndent
             y += style.firstLineHeadIndent
         }
         return CGRect(x: x, y: y, width: w, height: h)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKeyDictionary(_ input: [NSAttributedString.Key: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
