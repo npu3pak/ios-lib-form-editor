@@ -1,0 +1,16 @@
+PODS:
+  - FormEditor (0.9.2)
+
+DEPENDENCIES:
+  - FormEditor (from `../`)
+
+EXTERNAL SOURCES:
+  FormEditor:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FormEditor: 54aa697d1aa2925c5e068b341a035be31df07f5d
+
+PODFILE CHECKSUM: a9723a55867b7dee9b01b9c2590e3365db384382
+
+COCOAPODS: 1.5.3

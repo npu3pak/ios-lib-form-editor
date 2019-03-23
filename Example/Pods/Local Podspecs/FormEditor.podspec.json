@@ -1,0 +1,27 @@
+{
+  "name": "FormEditor",
+  "version": "0.9.2",
+  "summary": "A short description of FormEditor.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/npu3pak/FormEditor",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "npu3pak": "safronovev.personal@yandex.ru"
+  },
+  "source": {
+    "git": "https://github.com/npu3pak/FormEditor.git",
+    "tag": "0.9.2"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "FormEditor/Classes/**/*",
+  "resource_bundles": {
+    "FormEditor": [
+      "Pod/**/*.xib"
+    ]
+  }
+}
